@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/modals/edit_profile_photo/edit_profile_photo_widget.dart';
+import '/components/edit_profile_photo/edit_profile_photo_widget.dart';
+import '/components/modals/modal_delete/modal_delete_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -80,7 +81,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         ),
         title: Text(
           FFLocalizations.of(context).getText(
-            '1amqfmbj' /* Edit Profile */,
+            '1amqfmbj' /* Manage Profile */,
           ),
           style: FlutterFlowTheme.of(context).titleLarge,
         ),
@@ -274,7 +275,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   )),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.05),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent('EDIT_PROFILE_SAVE_CHANGES_BTN_ON_TAP');
@@ -327,6 +328,54 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                       hoverTextColor: FlutterFlowTheme.of(context).primaryText,
                       hoverElevation: 0.0,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      logFirebaseEvent(
+                          'EDIT_PROFILE_DELETE_ACCOUNT_BTN_ON_TAP');
+                      logFirebaseEvent('Button_bottom_sheet');
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: MediaQuery.viewInsetsOf(context),
+                            child: const ModalDeleteWidget(),
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
+                    },
+                    text: FFLocalizations.of(context).getText(
+                      '221vivo7' /* Delete Account */,
+                    ),
+                    options: FFButtonOptions(
+                      height: 44.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                      hoverColor: FlutterFlowTheme.of(context).alternate,
+                      hoverBorderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 2.0,
+                      ),
+                      hoverTextColor: FlutterFlowTheme.of(context).primaryText,
+                      hoverElevation: 3.0,
                     ),
                   ),
                 ),

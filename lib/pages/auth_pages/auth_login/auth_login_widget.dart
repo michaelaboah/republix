@@ -423,7 +423,6 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                     child: TextFormField(
                                       controller: _model.emailAddressController,
                                       focusNode: _model.emailAddressFocusNode,
-                                      autofocus: true,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText:

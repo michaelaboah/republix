@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'modal_profile_details_widget.dart' show ModalProfileDetailsWidget;
+import 'modal_delete_widget.dart' show ModalDeleteWidget;
 import 'package:flutter/material.dart';
 
-class ModalProfileDetailsModel
-    extends FlutterFlowModel<ModalProfileDetailsWidget> {
+class ModalDeleteModel extends FlutterFlowModel<ModalDeleteWidget> {
   /// Initialization and disposal methods.
 
   @override

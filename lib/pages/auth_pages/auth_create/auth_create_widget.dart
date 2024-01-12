@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/components/main_logo_small/main_logo_small_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -130,6 +131,26 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 600.ms,
+          begin: const Offset(0.0, 40.0),
+          end: const Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'textFieldOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 200.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
           begin: const Offset(0.0, 60.0),
           end: const Offset(0.0, 0.0),
         ),
@@ -155,7 +176,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
         ),
       ],
     ),
-    'textFieldOnPageLoadAnimation3': AnimationInfo(
+    'textFieldOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         VisibilityEffect(duration: 200.ms),
@@ -175,7 +196,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
         ),
       ],
     ),
-    'textFieldOnPageLoadAnimation4': AnimationInfo(
+    'textFieldOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         VisibilityEffect(duration: 200.ms),
@@ -317,6 +338,9 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
     _model = createModel(context, () => AuthCreateModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'auth_Create'});
+    _model.displayNameController ??= TextEditingController();
+    _model.displayNameFocusNode ??= FocusNode();
+
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
@@ -371,10 +395,10 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
           height: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFEE76161), Color(0xFF7E71FE)],
+              colors: [Color(0xFF7E71FE), Color(0xFEE76161)],
               stops: [0.2, 1.0],
-              begin: AlignmentDirectional(1.0, -0.64),
-              end: AlignmentDirectional(-1.0, 0.64),
+              begin: AlignmentDirectional(1.0, -0.24),
+              end: AlignmentDirectional(-1.0, 0.24),
             ),
           ),
           alignment: const AlignmentDirectional(0.0, 0.0),
@@ -447,6 +471,98 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                           0.0, 16.0, 0.0, 0.0),
                                       child: TextFormField(
                                         controller:
+                                            _model.displayNameController,
+                                        focusNode: _model.displayNameFocusNode,
+                                        autofocus: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: FFLocalizations.of(context)
+                                              .getText(
+                                            'mr9es1dy' /* Display Name */,
+                                          ),
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium,
+                                          hintText: FFLocalizations.of(context)
+                                              .getText(
+                                            'dpdu926m' /* Enter your display name here..... */,
+                                          ),
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .accent4,
+                                          contentPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 24.0, 20.0, 24.0),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                        cursorColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                        validator: _model
+                                            .displayNameControllerValidator
+                                            .asValidator(context),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textFieldOnPageLoadAnimation1']!),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 16.0, 0.0, 0.0),
+                                      child: TextFormField(
+                                        controller:
                                             _model.emailAddressController,
                                         focusNode: _model.emailAddressFocusNode,
                                         autofocus: true,
@@ -454,14 +570,14 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                         decoration: InputDecoration(
                                           labelText: FFLocalizations.of(context)
                                               .getText(
-                                            'mr9es1dy' /* Email Address */,
+                                            'jvu33y1i' /* Email Address */,
                                           ),
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium,
                                           hintText: FFLocalizations.of(context)
                                               .getText(
-                                            'dpdu926m' /* Enter your email here... */,
+                                            'ubwfelpx' /* Enter your email here... */,
                                           ),
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
@@ -524,7 +640,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                             .emailAddressControllerValidator
                                             .asValidator(context),
                                       ).animateOnPageLoad(animationsMap[
-                                          'textFieldOnPageLoadAnimation1']!),
+                                          'textFieldOnPageLoadAnimation2']!),
                                     ),
                                   ),
                                 ],
@@ -626,7 +742,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                             .addressInputControllerValidator
                                             .asValidator(context),
                                       ).animateOnPageLoad(animationsMap[
-                                          'textFieldOnPageLoadAnimation2']!),
+                                          'textFieldOnPageLoadAnimation3']!),
                                     ),
                                   ),
                                   if (false &&
@@ -809,7 +925,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                             .passwordControllerValidator
                                             .asValidator(context),
                                       ).animateOnPageLoad(animationsMap[
-                                          'textFieldOnPageLoadAnimation3']!),
+                                          'textFieldOnPageLoadAnimation4']!),
                                     ),
                                   ),
                                 ],
@@ -908,7 +1024,7 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                         .passwordConfirmControllerValidator
                                         .asValidator(context),
                                   ).animateOnPageLoad(animationsMap[
-                                      'textFieldOnPageLoadAnimation4']!),
+                                      'textFieldOnPageLoadAnimation5']!),
                                 ),
                               ),
                               Padding(
@@ -919,43 +1035,6 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    if (responsiveVisibility(
-                                      context: context,
-                                      phone: false,
-                                      tablet: false,
-                                      tabletLandscape: false,
-                                    ))
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            FFLocalizations.of(context).getText(
-                                              '98nikyi5' /* Running for Office? */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                          Switch.adaptive(
-                                            value: _model.switchValue ??= false,
-                                            onChanged: (newValue) async {
-                                              setState(() => _model
-                                                  .switchValue = newValue);
-                                            },
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            activeTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .accent1,
-                                            inactiveTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            inactiveThumbColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                          ),
-                                        ],
-                                      ),
                                     FFButtonWidget(
                                       onPressed: () async {
                                         logFirebaseEvent(
@@ -986,28 +1065,18 @@ class _AuthCreateWidgetState extends State<AuthCreateWidget>
                                           return;
                                         }
 
-                                        if (_model.switchValue!) {
-                                          logFirebaseEvent(
-                                              'Button-Login_navigate_to');
+                                        await UsersRecord.collection
+                                            .doc(user.uid)
+                                            .update(createUsersRecordData(
+                                              displayName: _model
+                                                  .displayNameController.text,
+                                            ));
 
-                                          context.pushNamedAuth(
-                                            'createCandidate',
-                                            context.mounted,
-                                            queryParameters: {
-                                              'newCandidateUserRef':
-                                                  serializeParam(
-                                                currentUserReference,
-                                                ParamType.DocumentReference,
-                                              ),
-                                            }.withoutNulls,
-                                          );
-                                        } else {
-                                          logFirebaseEvent(
-                                              'Button-Login_navigate_to');
+                                        logFirebaseEvent(
+                                            'Button-Login_navigate_to');
 
-                                          context.pushNamedAuth(
-                                              'Main_Home', context.mounted);
-                                        }
+                                        context.pushNamedAuth(
+                                            'Main_Home', context.mounted);
                                       },
                                       text: FFLocalizations.of(context).getText(
                                         '8vmie2zm' /* Create Account */,

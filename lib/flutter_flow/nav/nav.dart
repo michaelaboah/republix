@@ -146,33 +146,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const EditProfileWidget(),
         ),
         FFRoute(
-          name: 'projectDetailsHealthAi',
-          path: '/projectDetailsHealthAi',
-          requireAuth: true,
-          builder: (context, params) => const ProjectDetailsHealthAiWidget(),
-        ),
-        FFRoute(
-          name: 'projectDetails',
-          path: '/projectDetails',
-          requireAuth: true,
-          builder: (context, params) => const ProjectDetailsWidget(),
-        ),
-        FFRoute(
-          name: 'searchPage',
-          path: '/searchPage',
-          requireAuth: true,
-          builder: (context, params) => const SearchPageWidget(),
-        ),
-        FFRoute(
-          name: 'messagesDetails',
-          path: '/messagesDetails',
-          requireAuth: true,
-          builder: (context, params) => const MessagesDetailsWidget(),
-        ),
-        FFRoute(
           name: 'candidateDetails',
           path: '/candidateDetails',
-          requireAuth: true,
           builder: (context, params) => CandidateDetailsWidget(
             showBack: params.getParam('showBack', ParamType.bool),
             candidateRef: params.getParam('candidateRef',

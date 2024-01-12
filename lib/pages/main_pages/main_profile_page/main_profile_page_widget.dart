@@ -1,5 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/modals_extra/modal_profile_edit/modal_profile_edit_widget.dart';
+import '/components/modals/modal_profile_edit/modal_profile_edit_widget.dart';
 import '/components/web_nav/web_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_language_selector.dart';
@@ -266,11 +266,14 @@ class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 8.0, 0.0, 0.0),
-                                            child: AutoSizeText(
-                                              currentUserEmail,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall,
+                                            child: AuthUserStreamWidget(
+                                              builder: (context) =>
+                                                  AutoSizeText(
+                                                currentUserDisplayName,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall,
+                                              ),
                                             ),
                                           ),
                                         ],

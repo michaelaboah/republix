@@ -9,6 +9,10 @@ class AuthCreateModel extends FlutterFlowModel<AuthCreateWidget> {
   final unfocusNode = FocusNode();
   // Model for main_Logo_Small component.
   late MainLogoSmallModel mainLogoSmallModel;
+  // State field(s) for displayName widget.
+  FocusNode? displayNameFocusNode;
+  TextEditingController? displayNameController;
+  String? Function(BuildContext, String?)? displayNameControllerValidator;
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressController;
@@ -27,8 +31,6 @@ class AuthCreateModel extends FlutterFlowModel<AuthCreateWidget> {
   TextEditingController? passwordConfirmController;
   late bool passwordConfirmVisibility;
   String? Function(BuildContext, String?)? passwordConfirmControllerValidator;
-  // State field(s) for Switch widget.
-  bool? switchValue;
 
   /// Initialization and disposal methods.
 
@@ -43,6 +45,9 @@ class AuthCreateModel extends FlutterFlowModel<AuthCreateWidget> {
   void dispose() {
     unfocusNode.dispose();
     mainLogoSmallModel.dispose();
+    displayNameFocusNode?.dispose();
+    displayNameController?.dispose();
+
     emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();
 

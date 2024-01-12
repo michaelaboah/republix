@@ -19,6 +19,7 @@ class TestAPIsGroup {
 class GoogleCivicAPICall {
   static Future<ApiCallResponse> call({
     String? address = '',
+    String? key = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Google Civic API',
@@ -26,7 +27,7 @@ class GoogleCivicAPICall {
       callType: ApiCallType.GET,
       headers: {},
       params: {
-        'key': "AIzaSyBEhPuCCM_3Vyh2GF5vnJ0BiFjlhGmEDaw",
+        'key': key,
         'address': address,
       },
       returnBody: true,

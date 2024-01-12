@@ -92,10 +92,10 @@ dependencies:
   path_provider_foundation: 2.2.2
   path_provider_platform_interface: 2.0.6
   percent_indicator: 4.2.2
-  pin_code_fields: 8.0.1
   plugin_platform_interface: 2.1.6
   provider: 6.0.5
   rxdart: 0.27.7
+  share_plus: 7.2.1
   shared_preferences: 2.2.2
   shared_preferences_android: 2.2.1
   shared_preferences_foundation: 2.3.4
@@ -111,9 +111,7 @@ dependencies:
   stripe_ios: 9.4.1
   stripe_js: 3.2.0
   stripe_platform_interface: 9.4.0
-  substring_highlight: 1.0.33
   synchronized: 3.1.0
-  text_search: 1.0.1
   timeago: 3.2.2
   url_launcher: 6.1.10
   url_launcher_android: 6.0.27

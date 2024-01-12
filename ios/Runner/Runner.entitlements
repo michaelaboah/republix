@@ -8,7 +8,7 @@
     </array>
     <key>com.apple.developer.associated-domains</key>
     <array>
-      <string>applinks:republix.app</string>
+      <string>applinks:republix.page.link</string>
     </array>
 </dict>
 </plist>

@@ -159,46 +159,6 @@ class _MainNotificationsWidgetState extends State<MainNotificationsWidget>
                                         'textOnPageLoadAnimation']!),
                                   ),
                                 ),
-                                if (responsiveVisibility(
-                                  context: context,
-                                  tabletLandscape: false,
-                                  desktop: false,
-                                ))
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 24.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderColor: Colors.transparent,
-                                      borderRadius: 30.0,
-                                      borderWidth: 1.0,
-                                      buttonSize: 60.0,
-                                      icon: Icon(
-                                        Icons.search_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 30.0,
-                                      ),
-                                      onPressed: () async {
-                                        logFirebaseEvent(
-                                            'MAIN_NOTIFICATIONS_search_rounded_ICN_ON');
-                                        logFirebaseEvent(
-                                            'IconButton_navigate_to');
-
-                                        context.pushNamed(
-                                          'searchPage',
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: const TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType: PageTransitionType
-                                                  .bottomToTop,
-                                              duration:
-                                                  Duration(milliseconds: 250),
-                                            ),
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
                               ],
                             ),
                           ),

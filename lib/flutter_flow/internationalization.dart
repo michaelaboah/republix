@@ -211,10 +211,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'mr9es1dy': {
-      'en': 'Email Address',
+      'en': 'Display Name',
       'es': '',
     },
     'dpdu926m': {
+      'en': 'Enter your display name here...',
+      'es': '',
+    },
+    'jvu33y1i': {
+      'en': 'Email Address',
+      'es': '',
+    },
+    'ubwfelpx': {
       'en': 'Enter your email here...',
       'es': '',
     },
@@ -248,10 +256,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'citfyb8l': {
       'en': 'Create your password...',
-      'es': '',
-    },
-    '98nikyi5': {
-      'en': 'Running for Office?',
       'es': '',
     },
     '8vmie2zm': {
@@ -330,10 +334,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     'oh741gy4': {
       'en': 'Officials',
-      'es': '',
-    },
-    'lmcy2fjz': {
-      'en': 'Invite Users',
       'es': '',
     },
     '9z3tyns9': {
@@ -625,159 +625,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Save Changes',
       'es': '',
     },
+    '221vivo7': {
+      'en': 'Delete Account',
+      'es': '',
+    },
     '1amqfmbj': {
-      'en': 'Edit Profile',
-      'es': '',
-    },
-  },
-  // projectDetailsHealthAi
-  {
-    'e68fbs51': {
-      'en': 'HealthAi',
-      'es': '',
-    },
-    '5lo6vg43': {
-      'en': 'Client Acquisition for Q3',
-      'es': '',
-    },
-    'caa81a1t': {
-      'en': 'Next Action',
-      'es': '',
-    },
-    'vnd9fi20': {
-      'en': 'Tuesday, 10:00am',
-      'es': '',
-    },
-    'vyvwn7py': {
-      'en': 'In Progress',
-      'es': '',
-    },
-    'dyzq573o': {
-      'en': 'Contract Details',
-      'es': '',
-    },
-    '1ptr8odg': {
-      'en': '\$125,000',
-      'es': '',
-    },
-    'tb86mcgy': {
-      'en':
-          'Additional Details around this contract and who is working on it in this card!',
-      'es': '',
-    },
-    '2k47nft6': {
-      'en': 'Mark as Complete',
-      'es': '',
-    },
-    'nweocu5j': {
-      'en': 'Contract Details',
-      'es': '',
-    },
-    'cgrinax2': {
-      'en': '\$67,000',
-      'es': '',
-    },
-    'l1fs4i3p': {
-      'en':
-          'Additional Details around this contract and who is working on it in this card!',
-      'es': '',
-    },
-    'zb8tg3t4': {
-      'en': 'Mark as Complete',
-      'es': '',
-    },
-    'rb9321jd': {
-      'en': 'Home',
-      'es': '',
-    },
-  },
-  // projectDetails
-  {
-    '7kk1uuqg': {
-      'en': 'Home',
-      'es': '',
-    },
-  },
-  // searchPage
-  {
-    'vvw620e3': {
-      'en': 'Add Members',
-      'es': '',
-    },
-    'nctjbcpr': {
-      'en': 'Search members...',
-      'es': '',
-    },
-    'wqavq18o': {
-      'en': 'Option 1',
-      'es': '',
-    },
-    '8ws3kxf5': {
-      'en': 'All Members',
-      'es': '',
-    },
-    'gmlirjfd': {
-      'en': 'View',
-      'es': '',
-    },
-    'i9dwvbi8': {
-      'en': 'Home',
-      'es': '',
-    },
-  },
-  // messagesDetails
-  {
-    'exzs2yei': {
-      'en':
-          'I am a freelancer and I need help writing content for a proposal for a project. Can I give you some context for the projecct I need to write a proposal for?',
-      'es': '',
-    },
-    'fsgyhuiu': {
-      'en': 'Just Now',
-      'es': '',
-    },
-    'ya91z6cp': {
-      'en': 'Hey really love what you are doing!',
-      'es': '',
-    },
-    '6jd7iuaz': {
-      'en': 'a few moments ago',
-      'es': '',
-    },
-    '70qzol7h': {
-      'en': 'This is my intro video',
-      'es': '',
-    },
-    '0ik5s8vg': {
-      'en': 'Just Now',
-      'es': '',
-    },
-    '1w5f01rq': {
-      'en': 'Hey really love what you are doing!',
-      'es': '',
-    },
-    'w2yk9eh0': {
-      'en': 'Just Now',
-      'es': '',
-    },
-    '1wywlhnz': {
-      'en': 'Hey really love what you are doing!',
-      'es': '',
-    },
-    '630mtk89': {
-      'en': 'Just Now',
-      'es': '',
-    },
-    'was2bomq': {
-      'en': 'Start typing here...',
-      'es': '',
-    },
-    'qz0qj777': {
-      'en': 'Chat Details',
-      'es': '',
-    },
-    'j5wr5k42': {
-      'en': 'Home',
+      'en': 'Manage Profile',
       'es': '',
     },
   },
@@ -1500,37 +1353,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // commandPalette
-  {
-    '3gsla56p': {
-      'en': 'Search platform...',
-      'es': '',
-    },
-    '5pn1u7vm': {
-      'en': 'Search',
-      'es': '',
-    },
-    'uyys9srv': {
-      'en': 'Quick Links',
-      'es': '',
-    },
-    '0b1a4r8i': {
-      'en': 'Add Quiz',
-      'es': '',
-    },
-    '536oh4i6': {
-      'en': 'Find Customer',
-      'es': '',
-    },
-    'v6y1yqvf': {
-      'en': 'New Project',
-      'es': '',
-    },
-    'r6ck4qvy': {
-      'en': 'New Customer',
-      'es': '',
-    },
-  },
   // editProfilePhoto
   {
     'z68c7zj4': {
@@ -1769,261 +1591,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'mlsqckiu': {
       'en': 'Project Details',
-      'es': '',
-    },
-  },
-  // modal_create_Company
-  {
-    '1kw5zyjb': {
-      'en': 'Create Company Profile',
-      'es': '',
-    },
-    'p1rw16cu': {
-      'en':
-          'Upload images about your company and fill out the information below.',
-      'es': '',
-    },
-    '2lk3nzu5': {
-      'en': 'Company Name',
-      'es': '',
-    },
-    '3ln46jsv': {
-      'en': 'Company City',
-      'es': '',
-    },
-    's7sam7hv': {
-      'en': 'Website',
-      'es': '',
-    },
-    'fxqa6swm': {
-      'en': 'Enter in your website without "https://"...',
-      'es': '',
-    },
-    'f5h8v4hp': {
-      'en': 'Cancel',
-      'es': '',
-    },
-    '5e4zvvdm': {
-      'en': 'Create Company',
-      'es': '',
-    },
-  },
-  // modal_inviteUser
-  {
-    'ivpzanc7': {
-      'en': 'Edit User Details',
-      'es': '',
-    },
-    '80x3t3kr': {
-      'en': 'Edit the details of the user below.',
-      'es': '',
-    },
-    'kqsr9t6f': {
-      'en': 'Randy Peterson',
-      'es': '',
-    },
-    'tfh40lp8': {
-      'en': 'name@domainname.com',
-      'es': '',
-    },
-    'vpbgscd2': {
-      'en': 'User Name',
-      'es': '',
-    },
-    'xqdirqv1': {
-      'en': 'Bio',
-      'es': '',
-    },
-    '924df1bw': {
-      'en': 'Admin',
-      'es': '',
-    },
-    'r42bwpyf': {
-      'en': 'Manager',
-      'es': '',
-    },
-    '2gerecbv': {
-      'en': 'Editor',
-      'es': '',
-    },
-    '1ztsjbhk': {
-      'en': 'Viewer',
-      'es': '',
-    },
-    '3d3aijud': {
-      'en': 'Please select...',
-      'es': '',
-    },
-    '35v51216': {
-      'en': 'Search for an item...',
-      'es': '',
-    },
-    'w6f1cu8g': {
-      'en': 'Cancel',
-      'es': '',
-    },
-    'funv05wn': {
-      'en': 'Send Invites',
-      'es': '',
-    },
-  },
-  // modal_enterPin
-  {
-    '62zttwlb': {
-      'en': 'Enter your PIN below',
-      'es': '',
-    },
-    'fwo1rd7x': {
-      'en': 'Your project has been created, now invite your team to continue.',
-      'es': '',
-    },
-    '2wt2u3fa': {
-      'en': 'Cancel',
-      'es': '',
-    },
-    'rwasqgby': {
-      'en': 'Verify Code',
-      'es': '',
-    },
-  },
-  // modal_shareProject
-  {
-    '8y52j113': {
-      'en': 'Share your project',
-      'es': '',
-    },
-    '3qrem99i': {
-      'en': 'Your project has been created, now invite your team to continue.',
-      'es': '',
-    },
-    'ls3lwbl8': {
-      'en': 'Randy Peterson',
-      'es': '',
-    },
-    'ihty543x': {
-      'en': 'name@domainname.com',
-      'es': '',
-    },
-    'i47orzlk': {
-      'en': 'Randy Peterson',
-      'es': '',
-    },
-    'f0c3cix8': {
-      'en': 'name@domainname.com',
-      'es': '',
-    },
-    'o1fe3g9r': {
-      'en': 'Randy Peterson',
-      'es': '',
-    },
-    'zgx0yqdc': {
-      'en': 'name@domainname.com',
-      'es': '',
-    },
-    'gvu5jxuc': {
-      'en': 'Add User',
-      'es': '',
-    },
-    '249u5602': {
-      'en': 'Project Link',
-      'es': '',
-    },
-    'hplnuwy8': {
-      'en': 'https://project.flutterflow.io/?quizRef=T7c8mXvkYFFCWjqyhxKe',
-      'es': '',
-    },
-    'f9s0fpon': {
-      'en': 'Cancel',
-      'es': '',
-    },
-    'fpzplgp0': {
-      'en': 'Send Invites',
-      'es': '',
-    },
-  },
-  // Modal_Add_usersList
-  {
-    'b6p7sn40': {
-      'en': 'Invite your Team',
-      'es': '',
-    },
-    'gm58awpm': {
-      'en': 'Your project has been created, now invite your team to continue.',
-      'es': '',
-    },
-    'cca9viqe': {
-      'en': 'Email address...',
-      'es': '',
-    },
-    's88wumo4': {
-      'en': 'email@domainname.com',
-      'es': '',
-    },
-    'i233oe99': {
-      'en': 'email@domainname.com',
-      'es': '',
-    },
-    'v2rvmvee': {
-      'en': 'Cancel',
-      'es': '',
-    },
-    'svnpq5uk': {
-      'en': 'Send Invites',
-      'es': '',
-    },
-  },
-  // modal_profile_Details
-  {
-    'gnnntv9t': {
-      'en': 'Profile Details',
-      'es': '',
-    },
-    'nbi75ev4': {
-      'en': 'Below are your profile details',
-      'es': '',
-    },
-    'mufs4f36': {
-      'en': 'Randy Peterson',
-      'es': '',
-    },
-    '176ljqgq': {
-      'en': 'name@domainname.com',
-      'es': '',
-    },
-    'c4of7ytq': {
-      'en': 'Manage your account',
-      'es': '',
-    },
-    'w4qgsjet': {
-      'en': 'Edit Profile',
-      'es': '',
-    },
-    'd2u9zos5': {
-      'en': 'Reset Password',
-      'es': '',
-    },
-    'qjpw0q8e': {
-      'en': 'Light Mode',
-      'es': '',
-    },
-    'txejjjxw': {
-      'en': 'Dark Mode',
-      'es': '',
-    },
-    'jt8nj16q': {
-      'en': 'Get in Touch',
-      'es': '',
-    },
-    'ooetnm1t': {
-      'en': 'Help & Support',
-      'es': '',
-    },
-    'vh2ef9b1': {
-      'en': 'Share [App Name]',
-      'es': '',
-    },
-    'bgxtj8ew': {
-      'en': 'Close',
       'es': '',
     },
   },
@@ -2342,6 +1909,26 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
+  // modal_Delete
+  {
+    'jegsghh1': {
+      'en': 'Are you sure you want to delete?',
+      'es': '',
+    },
+    '4rp4axfp': {
+      'en':
+          'Republix will remove any and all information regarding your account and it cannot be recovered.',
+      'es': '',
+    },
+    '13yrbtjn': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'aapmxmgx': {
+      'en': 'Confirm',
+      'es': '',
+    },
+  },
   // Miscellaneous
   {
     '0nwoj0kc': {
@@ -2490,6 +2077,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '2rhm2suy': {
       'en': 'Design',
+      'es': '',
+    },
+    '4xzw91se': {
+      'en': 'Button',
+      'es': '',
+    },
+    'k0nyp568': {
+      'en': 'Button',
+      'es': '',
+    },
+    'ajq4c1y3': {
+      'en': 'Button',
       'es': '',
     },
     'hxsxj681': {

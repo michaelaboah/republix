@@ -1,12 +1,10 @@
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/bottom_sheets/officer_component/officer_component_widget.dart';
-import '/components/modals_extra/modal_share_project/modal_share_project_widget.dart';
 import '/components/web_nav/web_nav_widget.dart';
 import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -111,69 +109,6 @@ class _MainOfficersListWidgetState extends State<MainOfficersListWidget>
                             style: FlutterFlowTheme.of(context).displaySmall,
                           ),
                         ),
-                        if (responsiveVisibility(
-                          context: context,
-                          phone: false,
-                          tablet: false,
-                        ))
-                          Builder(
-                            builder: (context) => FFButtonWidget(
-                              onPressed: () async {
-                                logFirebaseEvent(
-                                    'MAIN_OFFICERS_LIST_INVITE_USERS_BTN_ON_T');
-                                logFirebaseEvent('Button_alert_dialog');
-                                await showDialog(
-                                  barrierColor: Colors.transparent,
-                                  context: context,
-                                  builder: (dialogContext) {
-                                    return Dialog(
-                                      insetPadding: EdgeInsets.zero,
-                                      backgroundColor: Colors.transparent,
-                                      alignment: const AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                      child: GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
-                                        child: const ModalShareProjectWidget(),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              },
-                              text: FFLocalizations.of(context).getText(
-                                'lmcy2fjz' /* Invite Users */,
-                              ),
-                              options: FFButtonOptions(
-                                height: 44.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle:
-                                    FlutterFlowTheme.of(context).titleSmall,
-                                elevation: 3.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                                hoverColor:
-                                    FlutterFlowTheme.of(context).accent1,
-                                hoverBorderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.0,
-                                ),
-                                hoverTextColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                hoverElevation: 0.0,
-                              ),
-                            ),
-                          ),
                       ].divide(const SizedBox(width: 16.0)),
                     ),
                   ),
