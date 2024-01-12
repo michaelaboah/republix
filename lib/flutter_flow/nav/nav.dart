@@ -84,105 +84,107 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/',
           builder: (context, _) =>
               appStateNotifier.loggedIn ? const NavBarPage() : const AuthLoginWidget(),
+          routes: [
+            FFRoute(
+              name: 'auth_Login',
+              path: 'authLogin',
+              builder: (context, params) => const AuthLoginWidget(),
+            ),
+            FFRoute(
+              name: 'forgotPassword',
+              path: 'forgotPassword',
+              requireAuth: true,
+              builder: (context, params) => const ForgotPasswordWidget(),
+            ),
+            FFRoute(
+              name: 'auth_Create',
+              path: 'authCreate',
+              builder: (context, params) => const AuthCreateWidget(),
+            ),
+            FFRoute(
+              name: 'Main_Home',
+              path: 'mainHome',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'Main_Home')
+                  : const MainHomeWidget(),
+            ),
+            FFRoute(
+              name: 'Main_officersList',
+              path: 'mainOfficersList',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'Main_officersList')
+                  : const MainOfficersListWidget(),
+            ),
+            FFRoute(
+              name: 'Main_Elections',
+              path: 'mainElections',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'Main_Elections')
+                  : const MainElectionsWidget(),
+            ),
+            FFRoute(
+              name: 'Main_Notifications',
+              path: 'mainNotifications',
+              requireAuth: true,
+              builder: (context, params) => const MainNotificationsWidget(),
+            ),
+            FFRoute(
+              name: 'Main_profilePage',
+              path: 'mainProfilePage',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'Main_profilePage')
+                  : const MainProfilePageWidget(),
+            ),
+            FFRoute(
+              name: 'editProfile',
+              path: 'editProfile',
+              requireAuth: true,
+              builder: (context, params) => const EditProfileWidget(),
+            ),
+            FFRoute(
+              name: 'candidateDetails',
+              path: 'candidateDetails',
+              builder: (context, params) => CandidateDetailsWidget(
+                showBack: params.getParam('showBack', ParamType.bool),
+                candidateRef: params.getParam('candidateRef',
+                    ParamType.DocumentReference, false, ['candidates']),
+              ),
+            ),
+            FFRoute(
+              name: 'electionPage',
+              path: 'electionPage',
+              requireAuth: true,
+              builder: (context, params) => ElectionPageWidget(
+                officeRace: params.getParam('officeRace', ParamType.String),
+                electrionRef: params.getParam('electrionRef',
+                    ParamType.DocumentReference, false, ['elections']),
+              ),
+            ),
+            FFRoute(
+              name: 'createCandidate',
+              path: 'createCandidate',
+              requireAuth: true,
+              builder: (context, params) => CreateCandidateWidget(
+                newCandidateUserRef: params.getParam('newCandidateUserRef',
+                    ParamType.DocumentReference, false, ['users']),
+              ),
+            ),
+            FFRoute(
+              name: 'officerDetails',
+              path: 'officerDetails',
+              requireAuth: true,
+              builder: (context, params) => OfficerDetailsWidget(
+                showBack: params.getParam('showBack', ParamType.bool),
+                officerRef: params.getParam('officerRef',
+                    ParamType.DocumentReference, false, ['officials']),
+              ),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
-        FFRoute(
-          name: 'auth_Login',
-          path: '/authLogin',
-          builder: (context, params) => const AuthLoginWidget(),
-        ),
-        FFRoute(
-          name: 'forgotPassword',
-          path: '/forgotPassword',
-          requireAuth: true,
-          builder: (context, params) => const ForgotPasswordWidget(),
-        ),
-        FFRoute(
-          name: 'auth_Create',
-          path: '/authCreate',
-          builder: (context, params) => const AuthCreateWidget(),
-        ),
-        FFRoute(
-          name: 'Main_Home',
-          path: '/mainHome',
-          requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Main_Home')
-              : const MainHomeWidget(),
-        ),
-        FFRoute(
-          name: 'Main_officersList',
-          path: '/mainOfficersList',
-          requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Main_officersList')
-              : const MainOfficersListWidget(),
-        ),
-        FFRoute(
-          name: 'Main_Elections',
-          path: '/mainElections',
-          requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Main_Elections')
-              : const MainElectionsWidget(),
-        ),
-        FFRoute(
-          name: 'Main_Notifications',
-          path: '/mainNotifications',
-          requireAuth: true,
-          builder: (context, params) => const MainNotificationsWidget(),
-        ),
-        FFRoute(
-          name: 'Main_profilePage',
-          path: '/mainProfilePage',
-          requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Main_profilePage')
-              : const MainProfilePageWidget(),
-        ),
-        FFRoute(
-          name: 'editProfile',
-          path: '/editProfile',
-          requireAuth: true,
-          builder: (context, params) => const EditProfileWidget(),
-        ),
-        FFRoute(
-          name: 'candidateDetails',
-          path: '/candidateDetails',
-          builder: (context, params) => CandidateDetailsWidget(
-            showBack: params.getParam('showBack', ParamType.bool),
-            candidateRef: params.getParam('candidateRef',
-                ParamType.DocumentReference, false, ['candidates']),
-          ),
-        ),
-        FFRoute(
-          name: 'electionPage',
-          path: '/electionPage',
-          requireAuth: true,
-          builder: (context, params) => ElectionPageWidget(
-            officeRace: params.getParam('officeRace', ParamType.String),
-            electrionRef: params.getParam('electrionRef',
-                ParamType.DocumentReference, false, ['elections']),
-          ),
-        ),
-        FFRoute(
-          name: 'createCandidate',
-          path: '/createCandidate',
-          requireAuth: true,
-          builder: (context, params) => CreateCandidateWidget(
-            newCandidateUserRef: params.getParam('newCandidateUserRef',
-                ParamType.DocumentReference, false, ['users']),
-          ),
-        ),
-        FFRoute(
-          name: 'officerDetails',
-          path: '/officerDetails',
-          requireAuth: true,
-          builder: (context, params) => OfficerDetailsWidget(
-            showBack: params.getParam('showBack', ParamType.bool),
-            officerRef: params.getParam('officerRef',
-                ParamType.DocumentReference, false, ['officials']),
-          ),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

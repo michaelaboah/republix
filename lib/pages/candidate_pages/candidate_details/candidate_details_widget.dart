@@ -687,6 +687,12 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                                 _model.currentPageLink,
                                               );
                                               logFirebaseEvent('Card_share');
+                                              await Share.share(
+                                                _model.currentPageLink,
+                                                sharePositionOrigin:
+                                                    getWidgetBoundingBox(
+                                                        context),
+                                              );
                                             },
                                             onLongPress: () async {
                                               logFirebaseEvent(
