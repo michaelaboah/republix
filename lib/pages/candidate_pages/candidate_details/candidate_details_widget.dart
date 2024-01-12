@@ -678,7 +678,6 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                                         .displayName,
                                                 description:
                                                     '${candidateDetailsCandidatesRecord.displayName} for ${containerElectionsRecord.electionName}',
-                                                isShortLink: false,
                                               );
 
                                               logFirebaseEvent(
