@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/comment_widget.dart';
-import '/components/election_filler/election_filler_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -330,42 +329,28 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget>
                           thickness: 1.0,
                           color: Color(0xFF7E71FE),
                         ),
-                        Flexible(
-                          child: Builder(
-                            builder: (context) {
-                              final comments =
-                                  postDetailsPostsRecord.comments.toList();
-                              if (comments.isEmpty) {
+                        Builder(
+                          builder: (context) {
+                            final comments =
+                                postDetailsPostsRecord.comments.toList();
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: comments.length,
+                              itemBuilder: (context, commentsIndex) {
+                                final commentsItem = comments[commentsIndex];
                                 return SizedBox(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.6,
-                                  child: const ElectionFillerWidget(),
+                                  height: 200.0,
+                                  child: CommentWidget(
+                                    key: Key(
+                                        'Keygdy_${commentsIndex}_of_${comments.length}'),
+                                    commentRef: commentsItem,
+                                  ),
                                 );
-                              }
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: comments.length,
-                                itemBuilder: (context, commentsIndex) {
-                                  final commentsItem = comments[commentsIndex];
-                                  return Visibility(
-                                    visible: responsiveVisibility(
-                                      context: context,
-                                      tabletLandscape: false,
-                                      desktop: false,
-                                    ),
-                                    child: CommentWidget(
-                                      key: Key(
-                                          'Key053_${commentsIndex}_of_${comments.length}'),
-                                      commentRef: commentsItem,
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),
