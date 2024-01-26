@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'election_page_model.dart';
 export 'election_page_model.dart';
 
@@ -26,7 +28,7 @@ class ElectionPageWidget extends StatefulWidget {
   final DocumentReference? electrionRef;
 
   @override
-  _ElectionPageWidgetState createState() => _ElectionPageWidgetState();
+  State<ElectionPageWidget> createState() => _ElectionPageWidgetState();
 }
 
 class _ElectionPageWidgetState extends State<ElectionPageWidget> {
@@ -132,6 +134,36 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                       minFontSize: 14.0,
                     ),
                   ),
+                  Builder(
+                    builder: (context) => FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 50.0,
+                      icon: Icon(
+                        Icons.ios_share_outlined,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 26.0,
+                      ),
+                      onPressed: () async {
+                        logFirebaseEvent(
+                            'ELECTION_ios_share_outlined_ICN_ON_TAP');
+                        logFirebaseEvent(
+                            'IconButton_generate_current_page_link');
+                        _model.currentPageLink = await generateCurrentPageLink(
+                          context,
+                          title: widget.officeRace,
+                          isShortLink: false,
+                        );
+
+                        logFirebaseEvent('IconButton_share');
+                        await Share.share(
+                          _model.currentPageLink,
+                          sharePositionOrigin: getWidgetBoundingBox(context),
+                        );
+                      },
+                    ),
+                  ),
                   if (responsiveVisibility(
                     context: context,
                     phone: false,
@@ -160,18 +192,22 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                             enableDrag: false,
                             context: context,
                             builder: (context) {
-                              return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 1.0,
-                                    child: CandidateFilterWidget(
-                                      electionRef: widget.electrionRef,
+                              return WebViewAware(
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      _model.unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              1.0,
+                                      child: CandidateFilterWidget(
+                                        electionRef: widget.electrionRef,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -227,10 +263,12 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                           builder: (context) {
                             final incumbents =
                                 electionPageElectionsRecord.incumbents.toList();
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(incumbents.length,
-                                  (incumbentsIndex) {
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: incumbents.length,
+                              separatorBuilder: (_, __) => const SizedBox(width: 8.0),
+                              itemBuilder: (context, incumbentsIndex) {
                                 final incumbentsItem =
                                     incumbents[incumbentsIndex];
                                 return StreamBuilder<OfficialsRecord>(
@@ -323,53 +361,6 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                                                       fit: BoxFit.contain,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(4.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'puia6qwp' /* Running? */,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      8.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            containerOfficialsRecord
-                                                                    .reElection
-                                                                ? 'Yes'
-                                                                : 'No',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
                                                 ],
                                               ),
                                               Row(
@@ -421,7 +412,7 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                                     );
                                   },
                                 );
-                              }),
+                              },
                             );
                           },
                         ),
@@ -569,7 +560,7 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                     ),
                   ),
                   Container(
-                    height: MediaQuery.sizeOf(context).height * 0.7,
+                    height: MediaQuery.sizeOf(context).height * 0.67,
                     decoration: const BoxDecoration(),
                     child: Builder(
                       builder: (context) {
@@ -687,6 +678,9 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                                           photoUrlPath:
                                               candidateComponentCandidatesRecord
                                                   .photoUrl,
+                                          numViews:
+                                              candidateComponentCandidatesRecord
+                                                  .followers.length,
                                         );
                                       },
                                     );

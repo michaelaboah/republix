@@ -9,7 +9,7 @@ class MainLogoSmallWidget extends StatefulWidget {
   const MainLogoSmallWidget({super.key});
 
   @override
-  _MainLogoSmallWidgetState createState() => _MainLogoSmallWidgetState();
+  State<MainLogoSmallWidget> createState() => _MainLogoSmallWidgetState();
 }
 
 class _MainLogoSmallWidgetState extends State<MainLogoSmallWidget> {

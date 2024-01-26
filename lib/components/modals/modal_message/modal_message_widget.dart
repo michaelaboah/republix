@@ -14,7 +14,7 @@ class ModalMessageWidget extends StatefulWidget {
   const ModalMessageWidget({super.key});
 
   @override
-  _ModalMessageWidgetState createState() => _ModalMessageWidgetState();
+  State<ModalMessageWidget> createState() => _ModalMessageWidgetState();
 }
 
 class _ModalMessageWidgetState extends State<ModalMessageWidget>

@@ -25,7 +25,7 @@ class CandidateFilterWidget extends StatefulWidget {
   final DocumentReference? electionRef;
 
   @override
-  _CandidateFilterWidgetState createState() => _CandidateFilterWidgetState();
+  State<CandidateFilterWidget> createState() => _CandidateFilterWidgetState();
 }
 
 class _CandidateFilterWidgetState extends State<CandidateFilterWidget>

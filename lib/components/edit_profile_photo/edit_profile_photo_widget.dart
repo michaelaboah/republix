@@ -15,7 +15,7 @@ class EditProfilePhotoWidget extends StatefulWidget {
   const EditProfilePhotoWidget({super.key});
 
   @override
-  _EditProfilePhotoWidgetState createState() => _EditProfilePhotoWidgetState();
+  State<EditProfilePhotoWidget> createState() => _EditProfilePhotoWidgetState();
 }
 
 class _EditProfilePhotoWidgetState extends State<EditProfilePhotoWidget> {

@@ -9,7 +9,7 @@ class ElectionFillerWidget extends StatefulWidget {
   const ElectionFillerWidget({super.key});
 
   @override
-  _ElectionFillerWidgetState createState() => _ElectionFillerWidgetState();
+  State<ElectionFillerWidget> createState() => _ElectionFillerWidgetState();
 }
 
 class _ElectionFillerWidgetState extends State<ElectionFillerWidget> {

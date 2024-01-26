@@ -16,7 +16,7 @@ class MainOfficersListWidget extends StatefulWidget {
   const MainOfficersListWidget({super.key});
 
   @override
-  _MainOfficersListWidgetState createState() => _MainOfficersListWidgetState();
+  State<MainOfficersListWidget> createState() => _MainOfficersListWidgetState();
 }
 
 class _MainOfficersListWidgetState extends State<MainOfficersListWidget>

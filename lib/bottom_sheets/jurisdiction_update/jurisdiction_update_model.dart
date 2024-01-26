@@ -7,18 +7,15 @@ class JurisdictionUpdateModel
     extends FlutterFlowModel<JurisdictionUpdateWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for emailAddress widget.
-  FocusNode? emailAddressFocusNode1;
-  TextEditingController? emailAddressController1;
-  String? Function(BuildContext, String?)? emailAddressController1Validator;
-  // State field(s) for emailAddress widget.
-  FocusNode? emailAddressFocusNode2;
-  TextEditingController? emailAddressController2;
-  String? Function(BuildContext, String?)? emailAddressController2Validator;
-  // State field(s) for districtNum widget.
-  FocusNode? districtNumFocusNode;
-  TextEditingController? districtNumController;
-  String? Function(BuildContext, String?)? districtNumControllerValidator;
+  // State field(s) for DropDown widget.
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownValueController1;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
+  // State field(s) for DropDown widget.
+  int? dropDownValue3;
+  FormFieldController<int>? dropDownValueController3;
   // State field(s) for StateDropDown widget.
   String? stateDropDownValue;
   FormFieldController<String>? stateDropDownValueController;
@@ -29,16 +26,7 @@ class JurisdictionUpdateModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    emailAddressFocusNode1?.dispose();
-    emailAddressController1?.dispose();
-
-    emailAddressFocusNode2?.dispose();
-    emailAddressController2?.dispose();
-
-    districtNumFocusNode?.dispose();
-    districtNumController?.dispose();
-  }
+  void dispose() {}
 
   /// Action blocks are added here.
 

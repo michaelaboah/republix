@@ -49,8 +49,8 @@ class DonationRecordsRecord extends FirestoreRecord {
           ? parent.collection('donation_records')
           : FirebaseFirestore.instance.collectionGroup('donation_records');
 
-  static DocumentReference createDoc(DocumentReference parent) =>
-      parent.collection('donation_records').doc();
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('donation_records').doc(id);
 
   static Stream<DonationRecordsRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => DonationRecordsRecord.fromSnapshot(s));

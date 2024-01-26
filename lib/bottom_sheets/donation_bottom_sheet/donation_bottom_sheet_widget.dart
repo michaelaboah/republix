@@ -25,7 +25,7 @@ class DonationBottomSheetWidget extends StatefulWidget {
   final DocumentReference? candidateRef;
 
   @override
-  _DonationBottomSheetWidgetState createState() =>
+  State<DonationBottomSheetWidget> createState() =>
       _DonationBottomSheetWidgetState();
 }
 

@@ -61,10 +61,15 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>In order to help find your jurisdiction, this app may need permission to access your location.</string>
 	<key>NSCameraUsageDescription</key>
-    <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+    <string>In order to upload images (profile), this app may need permission to access the camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload data, this app requires permission to access the photo library.</string>
+    <string>In order to upload images (profile), this app may need permission to access the photo library</string>
 
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
 
 
 	<key>UILaunchStoryboardName</key>

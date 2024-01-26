@@ -1,0 +1,155 @@
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'package:sticky_headers/sticky_headers.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'policy_details_model.dart';
+export 'policy_details_model.dart';
+
+class PolicyDetailsWidget extends StatefulWidget {
+  const PolicyDetailsWidget({
+    super.key,
+    this.policyTitle,
+    this.policyDetails,
+  });
+
+  final String? policyTitle;
+  final String? policyDetails;
+
+  @override
+  State<PolicyDetailsWidget> createState() => _PolicyDetailsWidgetState();
+}
+
+class _PolicyDetailsWidgetState extends State<PolicyDetailsWidget> {
+  late PolicyDetailsModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => PolicyDetailsModel());
+
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'policyDetails'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              logFirebaseEvent('POLICY_DETAILS_arrow_back_rounded_ICN_ON');
+              logFirebaseEvent('IconButton_navigate_back');
+              context.pop();
+            },
+          ),
+          title: Text(
+            FFLocalizations.of(context).getText(
+              'esm3xz8z' /* Policy Details */,
+            ),
+            style: FlutterFlowTheme.of(context).bodyLarge,
+          ),
+          actions: const [],
+          centerTitle: false,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StickyHeader(
+                  overlapHeaders: false,
+                  header: Container(
+                    width: double.infinity,
+                    height: MediaQuery.sizeOf(context).height * 0.07,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                    ),
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      child: AutoSizeText(
+                        valueOrDefault<String>(
+                          widget.policyTitle,
+                          'Missing',
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Outfit',
+                              decoration: TextDecoration.underline,
+                            ),
+                        minFontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            widget.policyDetails,
+                            'Missing',
+                          ),
+                          style: FlutterFlowTheme.of(context).labelMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ].divide(const SizedBox(height: 12.0)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

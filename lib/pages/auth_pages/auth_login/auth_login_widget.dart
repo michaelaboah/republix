@@ -17,7 +17,7 @@ class AuthLoginWidget extends StatefulWidget {
   const AuthLoginWidget({super.key});
 
   @override
-  _AuthLoginWidgetState createState() => _AuthLoginWidgetState();
+  State<AuthLoginWidget> createState() => _AuthLoginWidgetState();
 }
 
 class _AuthLoginWidgetState extends State<AuthLoginWidget>
@@ -504,8 +504,6 @@ class _AuthLoginWidgetState extends State<AuthLoginWidget>
                                     child: TextFormField(
                                       controller: _model.passwordController,
                                       focusNode: _model.passwordFocusNode,
-                                      autofocus: true,
-                                      autofillHints: const [AutofillHints.password],
                                       obscureText: !_model.passwordVisibility,
                                       decoration: InputDecoration(
                                         labelText:

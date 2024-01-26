@@ -18,7 +18,7 @@ class AuthCreateWidget extends StatefulWidget {
   const AuthCreateWidget({super.key});
 
   @override
-  _AuthCreateWidgetState createState() => _AuthCreateWidgetState();
+  State<AuthCreateWidget> createState() => _AuthCreateWidgetState();
 }
 
 class _AuthCreateWidgetState extends State<AuthCreateWidget>

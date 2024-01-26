@@ -16,13 +16,13 @@ class ModalConfirmWidget extends StatefulWidget {
     super.key,
     String? candidateName,
     this.candidateRef,
-  })  : candidateName = candidateName ?? 'Missing';
+  }) : candidateName = candidateName ?? 'Missing';
 
   final String candidateName;
   final DocumentReference? candidateRef;
 
   @override
-  _ModalConfirmWidgetState createState() => _ModalConfirmWidgetState();
+  State<ModalConfirmWidget> createState() => _ModalConfirmWidgetState();
 }
 
 class _ModalConfirmWidgetState extends State<ModalConfirmWidget>

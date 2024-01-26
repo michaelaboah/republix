@@ -7,5 +7,4 @@ abstract class FFAppConstants {
   static const int primary = 1;
   static const int general = 0;
   static const int special = 2;
-  static const String GoogleAPIKey = 'AIzaSyBEhPuCCM_3Vyh2GF5vnJ0BiFjlhGmEDaw';
 }

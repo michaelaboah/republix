@@ -16,15 +16,19 @@ class CandidateComponentWidget extends StatefulWidget {
     required this.candidateName,
     required this.partyInitial,
     this.photoUrlPath,
+    this.numViews,
+    this.numPosts,
   });
 
   final DocumentReference? candidateRef;
   final String? candidateName;
   final String? partyInitial;
   final String? photoUrlPath;
+  final int? numViews;
+  final int? numPosts;
 
   @override
-  _CandidateComponentWidgetState createState() =>
+  State<CandidateComponentWidget> createState() =>
       _CandidateComponentWidgetState();
 }
 
@@ -171,17 +175,22 @@ class _CandidateComponentWidgetState extends State<CandidateComponentWidget>
                                 maxLines: 3,
                                 style: FlutterFlowTheme.of(context).bodyLarge,
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  '(${valueOrDefault<String>(
-                                    widget.partyInitial,
-                                    'missing',
-                                  )})',
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      '(${valueOrDefault<String>(
+                                        widget.partyInitial,
+                                        'missing',
+                                      )})',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                ].divide(const SizedBox(width: 4.0)),
                               ),
                             ],
                           ),
@@ -231,35 +240,36 @@ class _CandidateComponentWidgetState extends State<CandidateComponentWidget>
                             ),
                           ),
                         ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Container(
-                            height: 40.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).accent3,
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).tertiary,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
+                                Icons.people_alt_outlined,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 20.0,
                               ),
-                            ),
-                            child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 8.0, 0.0),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'lou85tkj' /* Donate */,
-                                  ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                              Text(
+                                formatNumber(
+                                  widget.numViews,
+                                  formatType: FormatType.compact,
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: const Color(0xFF7E71FE),
+                                      fontSize: 14.0,
+                                    ),
                               ),
-                            ),
+                            ],
                           ),
-                        ].divide(const SizedBox(width: 4.0)),
+                        ],
                       ),
                     ],
                   ),

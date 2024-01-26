@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'main_profile_page_model.dart';
 export 'main_profile_page_model.dart';
 
@@ -19,7 +20,7 @@ class MainProfilePageWidget extends StatefulWidget {
   const MainProfilePageWidget({super.key});
 
   @override
-  _MainProfilePageWidgetState createState() => _MainProfilePageWidgetState();
+  State<MainProfilePageWidget> createState() => _MainProfilePageWidgetState();
 }
 
 class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
@@ -318,6 +319,9 @@ class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
                                       curve: Curves.easeInOut,
                                       width: double.infinity,
                                       height: 60.0,
+                                      constraints: const BoxConstraints(
+                                        minHeight: 70.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -396,6 +400,7 @@ class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
                                             context: context,
                                             builder: (dialogContext) {
                                               return Dialog(
+                                                elevation: 0,
                                                 insetPadding: EdgeInsets.zero,
                                                 backgroundColor:
                                                     Colors.transparent,
@@ -403,7 +408,10 @@ class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
                                                         0.0, 0.0)
                                                     .resolve(Directionality.of(
                                                         context)),
-                                                child: const ModalProfileEditWidget(),
+                                                child: const WebViewAware(
+                                                  child:
+                                                      ModalProfileEditWidget(),
+                                                ),
                                               );
                                             },
                                           ).then((value) => setState(() {}));
@@ -419,6 +427,9 @@ class _MainProfilePageWidgetState extends State<MainProfilePageWidget>
                                         curve: Curves.easeInOut,
                                         width: double.infinity,
                                         height: 60.0,
+                                        constraints: const BoxConstraints(
+                                          minHeight: 70.0,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,

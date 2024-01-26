@@ -15,7 +15,7 @@ class MainNotificationsWidget extends StatefulWidget {
   const MainNotificationsWidget({super.key});
 
   @override
-  _MainNotificationsWidgetState createState() =>
+  State<MainNotificationsWidget> createState() =>
       _MainNotificationsWidgetState();
 }
 

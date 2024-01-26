@@ -1,15 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/bottom_sheets/jurisdiction_update/jurisdiction_update_widget.dart';
-import '/components/election_filler/election_filler_widget.dart';
 import '/components/web_nav/web_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_button_tabbar.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'main_elections_model.dart';
 export 'main_elections_model.dart';
 
@@ -24,7 +26,7 @@ class MainElectionsWidget extends StatefulWidget {
   const MainElectionsWidget({super.key});
 
   @override
-  _MainElectionsWidgetState createState() => _MainElectionsWidgetState();
+  State<MainElectionsWidget> createState() => _MainElectionsWidgetState();
 }
 
 class _MainElectionsWidgetState extends State<MainElectionsWidget>
@@ -85,11 +87,6 @@ class _MainElectionsWidgetState extends State<MainElectionsWidget>
       }
     });
 
-    _model.tabBarController = TabController(
-      vsync: this,
-      length: 3,
-      initialIndex: 0,
-    )..addListener(() => setState(() {}));
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -120,224 +117,616 @@ class _MainElectionsWidgetState extends State<MainElectionsWidget>
 
     context.watch<FFAppState>();
 
-    return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                  ))
-                    wrapWithModel(
-                      model: _model.webNavModel,
-                      updateCallback: () => setState(() {}),
-                      child: const WebNavWidget(
-                        selectedNav: 3,
-                      ),
-                    ),
-                  Expanded(
-                    child: Container(
-                      width: 300.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 45.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                            ),
+    return StreamBuilder<List<StatesRecord>>(
+      stream: queryStatesRecord(
+        queryBuilder: (statesRecord) => statesRecord.where(
+          'state_name',
+          isEqualTo: valueOrDefault<String>(
+            FFAppState().userJurisdiction.state,
+            'Maryland',
+          ),
+        ),
+        singleRecord: true,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+        List<StatesRecord> mainElectionsStatesRecordList = snapshot.data!;
+        // Return an empty Container when the item does not exist.
+        if (snapshot.data!.isEmpty) {
+          return Container();
+        }
+        final mainElectionsStatesRecord =
+            mainElectionsStatesRecordList.isNotEmpty
+                ? mainElectionsStatesRecordList.first
+                : null;
+        return GestureDetector(
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                      ))
+                        wrapWithModel(
+                          model: _model.webNavModel,
+                          updateCallback: () => setState(() {}),
+                          child: const WebNavWidget(
+                            selectedNav: 3,
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 1.0, 0.0, 0.0),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                              alignment: const AlignmentDirectional(-1.0, 0.0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      FFLocalizations.of(context).getText(
-                                        '5amahfts' /* Coming Elections */,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .displaySmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 28.0,
-                                          ),
-                                    ).animateOnPageLoad(animationsMap[
-                                        'textOnPageLoadAnimation']!),
-                                    if (responsiveVisibility(
-                                      context: context,
-                                      tabletLandscape: false,
-                                      desktop: false,
-                                    ))
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 30.0,
-                                        borderWidth: 1.0,
-                                        buttonSize: 60.0,
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.mapMarkerAlt,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 30.0,
-                                        ),
-                                        onPressed: () async {
-                                          logFirebaseEvent(
-                                              'MAIN_ELECTIONS_mapMarkerAlt_ICN_ON_TAP');
-                                          logFirebaseEvent(
-                                              'IconButton_bottom_sheet');
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            barrierColor: const Color(0x1A000000),
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: const SizedBox(
-                                                    height: double.infinity,
-                                                    child:
-                                                        JurisdictionUpdateWidget(),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                      ),
-                                  ],
+                        ),
+                      Expanded(
+                        child: Container(
+                          width: 300.0,
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 45.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                 ),
                               ),
-                            ),
-                          ),
-                          if (responsiveVisibility(
-                            context: context,
-                            tabletLandscape: false,
-                            desktop: false,
-                          ))
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: const Alignment(0.0, 0),
-                                    child: FlutterFlowButtonTabBar(
-                                      useToggleButtonStyle: false,
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium,
-                                      unselectedLabelStyle: const TextStyle(),
-                                      labelColor: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      unselectedLabelColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).accent1,
-                                      borderColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      borderWidth: 2.0,
-                                      borderRadius: 12.0,
-                                      elevation: 0.0,
-                                      labelPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              20.0, 0.0, 20.0, 0.0),
-                                      buttonMargin:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              8.0, 0.0, 8.0, 0.0),
-                                      tabs: [
-                                        Tab(
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'iz0xtvoy' /* Federal */,
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 1.0, 0.0, 0.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                  ),
+                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'qy4e304l' /* Coming Elections */,
                                           ),
-                                        ),
-                                        Tab(
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'nbfaqmn3' /* State */,
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .displaySmall
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                fontSize: 28.0,
+                                              ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation']!),
+                                        if (responsiveVisibility(
+                                          context: context,
+                                          phone: false,
+                                          tablet: false,
+                                          tabletLandscape: false,
+                                          desktop: false,
+                                        ))
+                                          FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30.0,
+                                            borderWidth: 1.0,
+                                            buttonSize: 60.0,
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.mapMarkerAlt,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 30.0,
+                                            ),
+                                            onPressed: () async {
+                                              logFirebaseEvent(
+                                                  'MAIN_ELECTIONS_mapMarkerAlt_ICN_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'IconButton_bottom_sheet');
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                barrierColor: const Color(0x1A000000),
+                                                context: context,
+                                                builder: (context) {
+                                                  return WebViewAware(
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child: const SizedBox(
+                                                          height:
+                                                              double.infinity,
+                                                          child:
+                                                              JurisdictionUpdateWidget(),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
                                           ),
-                                        ),
-                                        Tab(
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'c62s0dgn' /* Local */,
+                                        FlutterFlowIconButton(
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .accent1,
+                                          borderRadius: 20.0,
+                                          borderWidth: 2.0,
+                                          buttonSize: 40.0,
+                                          icon: Icon(
+                                            Icons.filter_alt_off,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24.0,
                                           ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'MAIN_ELECTIONS_filter_alt_off_ICN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'IconButton_reset_form_fields');
+                                            setState(() {
+                                              _model.dropDownValueController1
+                                                  ?.reset();
+                                              _model.dropDownValueController2
+                                                  ?.reset();
+                                              _model.dropDownValueController3
+                                                  ?.reset();
+                                              _model.dropDownValueController4
+                                                  ?.reset();
+                                            });
+                                          },
                                         ),
                                       ],
-                                      controller: _model.tabBarController,
-                                      onTap: (i) async {
-                                        [
-                                          () async {},
-                                          () async {},
-                                          () async {}
-                                        ][i]();
-                                      },
                                     ),
                                   ),
-                                  Expanded(
-                                    child: TabBarView(
-                                      controller: _model.tabBarController,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: StreamBuilder<
-                                              List<ElectionsRecord>>(
-                                            stream: queryElectionsRecord(
-                                              queryBuilder: (electionsRecord) =>
-                                                  electionsRecord
-                                                      .where(
-                                                        'level',
-                                                        isEqualTo:
-                                                            FFAppConstants
-                                                                .federal,
-                                                      )
-                                                      .where(
-                                                        'jurisidiction.federal_district',
-                                                        isEqualTo: FFAppState()
-                                                            .userJurisdiction
-                                                            .federalDistrict,
-                                                      ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: 77.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Form(
+                                  key: _model.formKey,
+                                  autovalidateMode: AutovalidateMode.disabled,
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 0.0, 0.0),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController1 ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue1 ??=
+                                                  valueOrDefault<String>(
+                                                FFAppState()
+                                                    .userJurisdiction
+                                                    .state,
+                                                'Maryland',
+                                              ),
                                             ),
+                                            options:
+                                                List<String>.from(['Maryland']),
+                                            optionLabels: [
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'aw1zj3mr' /* MD */,
+                                              )
+                                            ],
+                                            onChanged: (val) async {
+                                              setState(() =>
+                                                  _model.dropDownValue1 = val);
+                                              logFirebaseEvent(
+                                                  'MAIN_ELECTIONS_DropDown_e1fyebgz_ON_FORM');
+                                              logFirebaseEvent(
+                                                  'DropDown_update_app_state');
+                                              setState(() {
+                                                FFAppState()
+                                                    .updateUserJurisdictionStruct(
+                                                  (e) => e
+                                                    ..county =
+                                                        _model.dropDownValue1,
+                                                );
+                                              });
+                                            },
+                                            width: 80.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              '1kv6xwzo' /* State */,
+                                            ),
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                          FlutterFlowDropDown<int>(
+                                            controller: _model
+                                                    .dropDownValueController2 ??=
+                                                FormFieldController<int>(
+                                              _model.dropDownValue2 ??= -1,
+                                            ),
+                                            options: List<int>.from(
+                                                [1, 2, 3, 4, 5, 6, 7, 8, -1]),
+                                            optionLabels: [
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '91fxazgy' /* 1st */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'xduyzpq4' /* 2nd */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '2xlz5tzf' /* 3rd */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'c9assyd5' /* 4th */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'gsl2fpb3' /* 5th */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'mv28we7m' /* 6th */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'pold12y4' /* 7th */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'ict1cvj8' /* 8th */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '5xrbln8n' /* All */,
+                                              )
+                                            ],
+                                            onChanged: (val) async {
+                                              setState(() =>
+                                                  _model.dropDownValue2 = val);
+                                              logFirebaseEvent(
+                                                  'MAIN_ELECTIONS_DropDown_7u80gjs7_ON_FORM');
+                                              logFirebaseEvent(
+                                                  'DropDown_update_app_state');
+                                              setState(() {
+                                                FFAppState().userJurisdiction =
+                                                    JurisdictionStruct(
+                                                  city: 'All',
+                                                  county: 'All',
+                                                  federalDistrict:
+                                                      _model.dropDownValue2,
+                                                );
+                                              });
+                                            },
+                                            width: 84.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              '2ia9vbft' /* District */,
+                                            ),
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: false,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                          FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController3 ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue3 ??=
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                'pk8fyb1r' /* All */,
+                                              ),
+                                            ),
+                                            options: mainElectionsStatesRecord!
+                                                .counties,
+                                            onChanged: (val) async {
+                                              setState(() =>
+                                                  _model.dropDownValue3 = val);
+                                              logFirebaseEvent(
+                                                  'MAIN_ELECTIONS_DropDown_16m08t3y_ON_FORM');
+                                              logFirebaseEvent(
+                                                  'DropDown_update_app_state');
+                                              setState(() {
+                                                FFAppState().userJurisdiction =
+                                                    JurisdictionStruct(
+                                                  city: 'All',
+                                                  county: _model.dropDownValue3,
+                                                  federalDistrict: -1,
+                                                );
+                                              });
+                                            },
+                                            width: 132.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              '3wvttao5' /* County */,
+                                            ),
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                          FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController4 ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue4 ??=
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                'rxb5lyum' /* All */,
+                                              ),
+                                            ),
+                                            options: [
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '123g7ku6' /* Baltimore */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '4i4ky507' /* All */,
+                                              )
+                                            ],
+                                            onChanged: (val) async {
+                                              setState(() =>
+                                                  _model.dropDownValue4 = val);
+                                              logFirebaseEvent(
+                                                  'MAIN_ELECTIONS_DropDown_3abzd4k6_ON_FORM');
+                                              logFirebaseEvent(
+                                                  'DropDown_update_app_state');
+                                              setState(() {
+                                                FFAppState().userJurisdiction =
+                                                    JurisdictionStruct(
+                                                  city: _model.dropDownValue4,
+                                                  county: 'All',
+                                                  federalDistrict: -1,
+                                                );
+                                              });
+                                            },
+                                            width: 146.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              '2xmp69rt' /* City */,
+                                            ),
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isOverButton: false,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                        ].divide(const SizedBox(width: 8.0)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: MediaQuery.sizeOf(context).height * 0.7,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: StreamBuilder<List<ElectionsRecord>>(
+                                    stream: queryElectionsRecord(
+                                      queryBuilder: (electionsRecord) =>
+                                          electionsRecord
+                                              .where(
+                                                'jurisidiction.city',
+                                                isEqualTo:
+                                                    _model.dropDownValue4 !=
+                                                            'All'
+                                                        ? FFAppState()
+                                                            .userJurisdiction
+                                                            .city
+                                                        : null,
+                                              )
+                                              .where(
+                                                'jurisidiction.county',
+                                                isEqualTo:
+                                                    _model.dropDownValue3 !=
+                                                            'All'
+                                                        ? _model.dropDownValue3
+                                                        : null,
+                                              )
+                                              .where(
+                                                'jurisidiction.federal_district',
+                                                isEqualTo:
+                                                    _model.dropDownValue2 != -1
+                                                        ? _model.dropDownValue2
+                                                        : null,
+                                              ),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<ElectionsRecord>
+                                          listViewElectionsRecordList =
+                                          snapshot.data!;
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount:
+                                            listViewElectionsRecordList.length,
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 8.0),
+                                        itemBuilder: (context, listViewIndex) {
+                                          final listViewElectionsRecord =
+                                              listViewElectionsRecordList[
+                                                  listViewIndex];
+                                          return StreamBuilder<ElectionsRecord>(
+                                            stream: ElectionsRecord.getDocument(
+                                                listViewElectionsRecord
+                                                    .reference),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
@@ -358,84 +747,74 @@ class _MainElectionsWidgetState extends State<MainElectionsWidget>
                                                   ),
                                                 );
                                               }
-                                              List<ElectionsRecord>
-                                                  listViewElectionsRecordList =
+                                              final containerElectionsRecord =
                                                   snapshot.data!;
-                                              if (listViewElectionsRecordList
-                                                  .isEmpty) {
-                                                return const ElectionFillerWidget();
-                                              }
-                                              return ListView.separated(
-                                                padding: EdgeInsets.zero,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    listViewElectionsRecordList
-                                                        .length,
-                                                separatorBuilder: (_, __) =>
-                                                    const SizedBox(height: 10.0),
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewElectionsRecord =
-                                                      listViewElectionsRecordList[
-                                                          listViewIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'MAIN_ELECTIONS_Container_ie1ftepc_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Container_navigate_to');
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'MAIN_ELECTIONS_Container_kn5ipguq_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'Container_navigate_to');
 
-                                                      context.pushNamed(
-                                                        'electionPage',
-                                                        queryParameters: {
-                                                          'officeRace':
-                                                              serializeParam(
-                                                            listViewElectionsRecord
-                                                                .electionName,
-                                                            ParamType.String,
-                                                          ),
-                                                          'electrionRef':
-                                                              serializeParam(
-                                                            listViewElectionsRecord
-                                                                .reference,
-                                                            ParamType
-                                                                .DocumentReference,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
+                                                  context.pushNamed(
+                                                    'electionPage',
+                                                    queryParameters: {
+                                                      'officeRace':
+                                                          serializeParam(
+                                                        containerElectionsRecord
+                                                            .electionName,
+                                                        ParamType.String,
                                                       ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets.all(8.0),
-                                                        child: Column(
+                                                      'electrionRef':
+                                                          serializeParam(
+                                                        containerElectionsRecord
+                                                            .reference,
+                                                        ParamType
+                                                            .DocumentReference,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: double.infinity,
+                                                  height: 100.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          containerElectionsRecord
+                                                              .electionName,
+                                                          maxLines: 2,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
                                                           children: [
                                                             Container(
                                                               width: 60.0,
@@ -468,792 +847,143 @@ class _MainElectionsWidgetState extends State<MainElectionsWidget>
                                                                 ),
                                                               ),
                                                             ),
-                                                            Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                listViewElectionsRecord
-                                                                    .electionName,
-                                                                'Missing',
-                                                              ),
-                                                              maxLines: 2,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: StreamBuilder<
-                                              List<ElectionsRecord>>(
-                                            stream: queryElectionsRecord(
-                                              queryBuilder: (electionsRecord) =>
-                                                  electionsRecord
-                                                      .where(
-                                                        'level',
-                                                        isEqualTo:
-                                                            FFAppConstants
-                                                                .state,
-                                                      )
-                                                      .where(
-                                                        'jurisidiction.state',
-                                                        isEqualTo: FFAppState()
-                                                            .userJurisdiction
-                                                            .state,
-                                                      ),
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              List<ElectionsRecord>
-                                                  gridViewElectionsRecordList =
-                                                  snapshot.data!;
-                                              if (gridViewElectionsRecordList
-                                                  .isEmpty) {
-                                                return const ElectionFillerWidget();
-                                              }
-                                              return GridView.builder(
-                                                padding: EdgeInsets.zero,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2,
-                                                  crossAxisSpacing: 10.0,
-                                                  mainAxisSpacing: 10.0,
-                                                  childAspectRatio: 1.0,
-                                                ),
-                                                scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    gridViewElectionsRecordList
-                                                        .length,
-                                                itemBuilder:
-                                                    (context, gridViewIndex) {
-                                                  final gridViewElectionsRecord =
-                                                      gridViewElectionsRecordList[
-                                                          gridViewIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'MAIN_ELECTIONS_Container_n1u6dh8c_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Container_navigate_to');
-                                                    },
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      height: 65.0,
-                                                      decoration: BoxDecoration(
-                                                        gradient:
-                                                            LinearGradient(
-                                                          colors: [
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error
-                                                          ],
-                                                          stops: const [0.0, 1.0],
-                                                          begin:
-                                                              const AlignmentDirectional(
-                                                                  0.0, -1.0),
-                                                          end:
-                                                              const AlignmentDirectional(
-                                                                  0, 1.0),
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets.all(8.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              width: 91.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                color: Color(
-                                                                    0x98FFFFFF),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          16.0),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          16.0),
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          16.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          16.0),
-                                                                ),
-                                                              ),
-                                                              alignment:
-                                                                  const AlignmentDirectional(
-                                                                      0.0, 0.0),
+                                                            Expanded(
                                                               child: Padding(
                                                                 padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                            4.0),
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              12.0),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/2vqf7_',
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: double
-                                                                        .infinity,
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                                    Container(
+                                                                  height: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .height *
+                                                                      0.058,
+                                                                  decoration:
+                                                                      const BoxDecoration(),
+                                                                  child: StreamBuilder<
+                                                                      List<
+                                                                          CandidatesRecord>>(
+                                                                    stream:
+                                                                        queryCandidatesRecord(
+                                                                      queryBuilder: (candidatesRecord) => candidatesRecord
+                                                                          .where(
+                                                                            'election_ref',
+                                                                            isEqualTo:
+                                                                                containerElectionsRecord.reference,
+                                                                          )
+                                                                          .where(
+                                                                            'photo_url',
+                                                                            isNotEqualTo:
+                                                                                null,
+                                                                          ),
+                                                                    ),
+                                                                    builder:
+                                                                        (context,
+                                                                            snapshot) {
+                                                                      // Customize what your widget looks like when it's loading.
+                                                                      if (!snapshot
+                                                                          .hasData) {
+                                                                        return Center(
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                50.0,
+                                                                            height:
+                                                                                50.0,
+                                                                            child:
+                                                                                CircularProgressIndicator(
+                                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                      List<CandidatesRecord>
+                                                                          listViewCandidatesRecordList =
+                                                                          snapshot
+                                                                              .data!;
+                                                                      return ListView
+                                                                          .builder(
+                                                                        padding:
+                                                                            EdgeInsets.zero,
+                                                                        shrinkWrap:
+                                                                            true,
+                                                                        scrollDirection:
+                                                                            Axis.horizontal,
+                                                                        itemCount:
+                                                                            listViewCandidatesRecordList.length,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                listViewIndex) {
+                                                                          final listViewCandidatesRecord =
+                                                                              listViewCandidatesRecordList[listViewIndex];
+                                                                          return Container(
+                                                                            width:
+                                                                                MediaQuery.sizeOf(context).width * 0.13,
+                                                                            height:
+                                                                                MediaQuery.sizeOf(context).width * 0.13,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              image: DecorationImage(
+                                                                                fit: BoxFit.fill,
+                                                                                image: CachedNetworkImageProvider(
+                                                                                  listViewCandidatesRecord.photoUrl,
+                                                                                ),
+                                                                              ),
+                                                                              shape: BoxShape.circle,
+                                                                              border: Border.all(
+                                                                                color: () {
+                                                                                  if (listViewCandidatesRecord.partyAffilication == 'Republican Party') {
+                                                                                    return const Color(0xFFFF0000);
+                                                                                  } else if (listViewCandidatesRecord.partyAffilication == 'Democratic Party') {
+                                                                                    return const Color(0xFF2208FF);
+                                                                                  } else {
+                                                                                    return const Color(0x00000000);
+                                                                                  }
+                                                                                }(),
+                                                                                width: 2.0,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              gridViewElectionsRecord
-                                                                  .electionName,
-                                                              maxLines: 2,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    fontSize:
-                                                                        16.0,
-                                                                  ),
                                                             ),
                                                           ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 0.0, 8.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 16.0, 0.0, 16.0),
-                                                child: Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          1.0,
-                                                  height: 185.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        4.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .getText(
-                                                                'uakc5yfa' /* County:  */,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelLarge
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    fontSize:
-                                                                        18.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        4.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              FFAppState()
-                                                                  .userJurisdiction
-                                                                  .county,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelLarge
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Divider(
-                                                        thickness: 1.0,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                      Expanded(
-                                                        child: StreamBuilder<
-                                                            List<
-                                                                ElectionsRecord>>(
-                                                          stream:
-                                                              queryElectionsRecord(
-                                                            queryBuilder:
-                                                                (electionsRecord) =>
-                                                                    electionsRecord
-                                                                        .where(
-                                                                          'jurisidiction.county',
-                                                                          isEqualTo: FFAppState()
-                                                                              .userJurisdiction
-                                                                              .county,
-                                                                        )
-                                                                        .where(
-                                                                          'level',
-                                                                          isEqualTo:
-                                                                              FFAppConstants.local,
-                                                                        ),
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 50.0,
-                                                                  height: 50.0,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    valueColor:
-                                                                        AlwaysStoppedAnimation<
-                                                                            Color>(
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<ElectionsRecord>
-                                                                gridViewElectionsRecordList =
-                                                                snapshot.data!;
-                                                            if (gridViewElectionsRecordList
-                                                                .isEmpty) {
-                                                              return const ElectionFillerWidget();
-                                                            }
-                                                            return GridView
-                                                                .builder(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              gridDelegate:
-                                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount:
-                                                                    1,
-                                                                crossAxisSpacing:
-                                                                    10.0,
-                                                                mainAxisSpacing:
-                                                                    10.0,
-                                                                childAspectRatio:
-                                                                    1.0,
-                                                              ),
-                                                              scrollDirection:
-                                                                  Axis.horizontal,
-                                                              itemCount:
-                                                                  gridViewElectionsRecordList
-                                                                      .length,
-                                                              itemBuilder: (context,
-                                                                  gridViewIndex) {
-                                                                final gridViewElectionsRecord =
-                                                                    gridViewElectionsRecordList[
-                                                                        gridViewIndex];
-                                                                return InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    logFirebaseEvent(
-                                                                        'MAIN_ELECTIONS_Container_d6vosolm_ON_TAP');
-                                                                    logFirebaseEvent(
-                                                                        'Container_navigate_to');
-
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'electionPage',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'officeRace':
-                                                                            serializeParam(
-                                                                          gridViewElectionsRecord
-                                                                              .electionName,
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                        'electrionRef':
-                                                                            serializeParam(
-                                                                          gridViewElectionsRecord
-                                                                              .reference,
-                                                                          ParamType
-                                                                              .DocumentReference,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height: 0.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      gradient:
-                                                                          LinearGradient(
-                                                                        colors: [
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .primary,
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .error
-                                                                        ],
-                                                                        stops: const [
-                                                                          0.0,
-                                                                          1.0
-                                                                        ],
-                                                                        begin: const AlignmentDirectional(
-                                                                            0.0,
-                                                                            -1.0),
-                                                                        end: const AlignmentDirectional(
-                                                                            0,
-                                                                            1.0),
-                                                                      ),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12.0),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              8.0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            gridViewElectionsRecord.electionName,
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            maxLines:
-                                                                                4,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Plus Jakarta Sans',
-                                                                                  fontSize: 16.0,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                height: 197.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      8.0,
-                                                                      4.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'hszftwyb' /* City: */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      8.0,
-                                                                      4.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            FFAppState()
-                                                                .userJurisdiction
-                                                                .city,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelLarge
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
                                                         ),
                                                       ],
                                                     ),
-                                                    Divider(
-                                                      thickness: 1.0,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                    ),
-                                                    Expanded(
-                                                      child: StreamBuilder<
-                                                          List<
-                                                              ElectionsRecord>>(
-                                                        stream:
-                                                            queryElectionsRecord(
-                                                          queryBuilder:
-                                                              (electionsRecord) =>
-                                                                  electionsRecord
-                                                                      .where(
-                                                                        'jurisidiction.city',
-                                                                        isEqualTo: FFAppState()
-                                                                            .userJurisdiction
-                                                                            .city,
-                                                                      )
-                                                                      .where(
-                                                                        'level',
-                                                                        isEqualTo:
-                                                                            FFAppConstants.local,
-                                                                      ),
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  valueColor:
-                                                                      AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          List<ElectionsRecord>
-                                                              gridViewElectionsRecordList =
-                                                              snapshot.data!;
-                                                          if (gridViewElectionsRecordList
-                                                              .isEmpty) {
-                                                            return const ElectionFillerWidget();
-                                                          }
-                                                          return GridView
-                                                              .builder(
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            gridDelegate:
-                                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount: 1,
-                                                              crossAxisSpacing:
-                                                                  10.0,
-                                                              mainAxisSpacing:
-                                                                  10.0,
-                                                              childAspectRatio:
-                                                                  1.0,
-                                                            ),
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            itemCount:
-                                                                gridViewElectionsRecordList
-                                                                    .length,
-                                                            itemBuilder: (context,
-                                                                gridViewIndex) {
-                                                              final gridViewElectionsRecord =
-                                                                  gridViewElectionsRecordList[
-                                                                      gridViewIndex];
-                                                              return InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  logFirebaseEvent(
-                                                                      'MAIN_ELECTIONS_Container_nslkdh9p_ON_TAP');
-                                                                  logFirebaseEvent(
-                                                                      'Container_navigate_to');
-
-                                                                  context
-                                                                      .pushNamed(
-                                                                    'electionPage',
-                                                                    queryParameters:
-                                                                        {
-                                                                      'officeRace':
-                                                                          serializeParam(
-                                                                        gridViewElectionsRecord
-                                                                            .electionName,
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'electrionRef':
-                                                                          serializeParam(
-                                                                        gridViewElectionsRecord
-                                                                            .reference,
-                                                                        ParamType
-                                                                            .DocumentReference,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  height: 0.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    gradient:
-                                                                        LinearGradient(
-                                                                      colors: [
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .tertiary
-                                                                      ],
-                                                                      stops: const [
-                                                                        0.0,
-                                                                        1.0
-                                                                      ],
-                                                                      begin: const AlignmentDirectional(
-                                                                          0.0,
-                                                                          -1.0),
-                                                                      end: const AlignmentDirectional(
-                                                                          0,
-                                                                          1.0),
-                                                                    ),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          gridViewElectionsRecord
-                                                                              .electionName,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          maxLines:
-                                                                              4,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Plus Jakarta Sans',
-                                                                                fontSize: 16.0,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                        ],
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

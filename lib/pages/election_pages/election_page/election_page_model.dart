@@ -29,6 +29,7 @@ class ElectionPageModel extends FlutterFlowModel<ElectionPageWidget> {
   FormFieldController<String>? partyDropdownFilterValueController;
   // Stores action output result for [Custom Action - mapCandidates] action in PartyDropdownFilter widget.
   List<DocumentReference>? filteredCandidateRefs;
+  String currentPageLink = '';
 
   /// Initialization and disposal methods.
 

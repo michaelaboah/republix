@@ -301,24 +301,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Tuesday, Nov 5',
       'es': '',
     },
-    'shyh14mo': {
-      'en': 'Contract Activity',
+    'l73wi08f': {
+      'en': 'Tuesday, May 14',
       'es': '',
     },
-    '3z3myhfq': {
-      'en': 'Below is an a summary of activity.',
-      'es': '',
-    },
-    'oyr1myyy': {
-      'en': 'Customer Activity',
-      'es': '',
-    },
-    'vhuyhz0k': {
-      'en': 'Below is an a summary of activity.',
-      'es': '',
-    },
-    '5lgpprnt': {
-      'en': 'Election Locations',
+    'toh6t86r': {
+      'en': 'Tuesday, Nov 5',
       'es': '',
     },
     'i7h2gbsc': {
@@ -437,7 +425,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // Main_Elections
+  // Main_ElectionsDeprecated
   {
     '5amahfts': {
       'en': 'Coming Elections',
@@ -660,8 +648,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Media',
       'es': '',
     },
-    '3e8ir5n5': {
-      'en': 'Coming Soon',
+    'bqsjaycf': {
+      'en': 'No Media',
+      'es': '',
+    },
+    'a2ge0gb9': {
+      'en': 'Posts',
       'es': '',
     },
     '0w66q6em': {
@@ -677,10 +669,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     'lxiuzu22': {
       'en': 'Incumbents:',
-      'es': '',
-    },
-    'puia6qwp': {
-      'en': 'Running?',
       'es': '',
     },
     'r25m9hmo': {
@@ -896,14 +884,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'vbste4y8': {
       'en': 'Media',
-      'es': '',
-    },
-    'b1il8c06': {
-      'en': 'Upload Headshot',
-      'es': '',
-    },
-    '8w01ckhv': {
-      'en': 'Upload Banner',
       'es': '',
     },
     'h8w1mk8z': {
@@ -1205,6 +1185,194 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
+  // policyDetails
+  {
+    'esm3xz8z': {
+      'en': 'Policy Details',
+      'es': '',
+    },
+    'zjoadlz2': {
+      'en': 'Home',
+      'es': '',
+    },
+  },
+  // PostDetails
+  {
+    'iqrnaof7': {
+      'en': 'Leave post here...',
+      'es': '',
+    },
+    'fttl5sq2': {
+      'en': 'Home',
+      'es': '',
+    },
+  },
+  // candidate_Dashboard
+  {
+    'kr6dqava': {
+      'en': 'Below is a summary of your day.',
+      'es': '',
+    },
+    'ndnfvpv7': {
+      'en': 'Page Views',
+      'es': '',
+    },
+    'q2893i44': {
+      'en': 'Followers',
+      'es': '',
+    },
+    'y9emvfvm': {
+      'en': 'Donation Clicks',
+      'es': '',
+    },
+    '1tk5y45x': {
+      'en': 'Latest Posts',
+      'es': '',
+    },
+    'uq5coclq': {
+      'en': 'A summary of your last post',
+      'es': '',
+    },
+    'fvn09y2t': {
+      'en': 'Recent Activity',
+      'es': '',
+    },
+    'tb57rr6v': {
+      'en': 'Below is an overview of tasks & activity completed.',
+      'es': '',
+    },
+    '5s295hic': {
+      'en': 'Tasks',
+      'es': '',
+    },
+    'y2q3t77k': {
+      'en': 'Completed',
+      'es': '',
+    },
+    '947mdr30': {
+      'en': 'Launches',
+      'es': '',
+    },
+    '7s8k5irx': {
+      'en': 'Last 30 Days',
+      'es': '',
+    },
+    '1l3jgzhp': {
+      'en': 'Avg. Grade',
+      'es': '',
+    },
+    '4vo99hot': {
+      'en': 'Dashboard',
+      'es': '',
+    },
+    '1dnssjri': {
+      'en': 'Dashboard',
+      'es': '',
+    },
+  },
+  // Main_Elections
+  {
+    'qy4e304l': {
+      'en': 'Coming Elections',
+      'es': '',
+    },
+    's9mmkpcz': {
+      'en': 'MD',
+      'es': '',
+    },
+    'aw1zj3mr': {
+      'en': 'MD',
+      'es': '',
+    },
+    '1kv6xwzo': {
+      'en': 'State',
+      'es': '',
+    },
+    '4vttiaxk': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    '91fxazgy': {
+      'en': '1st',
+      'es': '',
+    },
+    'xduyzpq4': {
+      'en': '2nd',
+      'es': '',
+    },
+    '2xlz5tzf': {
+      'en': '3rd',
+      'es': '',
+    },
+    'c9assyd5': {
+      'en': '4th',
+      'es': '',
+    },
+    'gsl2fpb3': {
+      'en': '5th',
+      'es': '',
+    },
+    'mv28we7m': {
+      'en': '6th',
+      'es': '',
+    },
+    'pold12y4': {
+      'en': '7th',
+      'es': '',
+    },
+    'ict1cvj8': {
+      'en': '8th',
+      'es': '',
+    },
+    '5xrbln8n': {
+      'en': 'All',
+      'es': '',
+    },
+    '2ia9vbft': {
+      'en': 'District',
+      'es': '',
+    },
+    's0kr5hy3': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    'pk8fyb1r': {
+      'en': 'All',
+      'es': '',
+    },
+    '3wvttao5': {
+      'en': 'County',
+      'es': '',
+    },
+    '6lawhu4j': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    'rxb5lyum': {
+      'en': 'All',
+      'es': '',
+    },
+    '123g7ku6': {
+      'en': 'Baltimore',
+      'es': '',
+    },
+    '4i4ky507': {
+      'en': 'All',
+      'es': '',
+    },
+    '2xmp69rt': {
+      'en': 'City',
+      'es': '',
+    },
+    'um8fgh03': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    '91y7aw8m': {
+      'en': '__',
+      'es': '',
+    },
+  },
   // modal_success
   {
     'qec8w9ic': {
@@ -1265,18 +1433,86 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // modal_Welcome
+  // modal_Onboarding
   {
     'i5ypg8bn': {
-      'en': 'Congratulations!',
+      'en': 'Welcome!',
       'es': '',
     },
     'adzuwpih': {
-      'en': 'A new contract has been generated for:',
+      'en': 'To democracy in your pocket',
       'es': '',
     },
-    '3iedx7z9': {
+    '162wi1bu': {
       'en': 'Continue',
+      'es': '',
+    },
+    '8u3b4gqx': {
+      'en': 'Setup Your Jurisdiction',
+      'es': '',
+    },
+    'ryggc8cu': {
+      'en': 'Focus on your politics at all levels',
+      'es': '',
+    },
+    'fa413sii': {
+      'en': '*Note: We don\'t save this data in the cloud',
+      'es': '',
+    },
+    'hfo9o8nc': {
+      'en': 'City',
+      'es': '',
+    },
+    '9oyvo6uo': {
+      'en': '',
+      'es': '',
+    },
+    'tgoldzft': {
+      'en': 'County',
+      'es': '',
+    },
+    'zkc3suhz': {
+      'en': '',
+      'es': '',
+    },
+    'al3n3yr6': {
+      'en': 'District',
+      'es': '',
+    },
+    'h02stygr': {
+      'en': '',
+      'es': '',
+    },
+    '7rtmj0of': {
+      'en': 'Maryland',
+      'es': '',
+    },
+    '78vv11zq': {
+      'en': 'Select State...',
+      'es': '',
+    },
+    'n9rqlkel': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    'frsj0854': {
+      'en': 'Back',
+      'es': '',
+    },
+    'uwjjnwoo': {
+      'en': 'Continue',
+      'es': '',
+    },
+    'v54sstir': {
+      'en': 'Done',
+      'es': '',
+    },
+    '6zi1a9p4': {
+      'en': 'Welcome to the Republix!!',
+      'es': '',
+    },
+    'vx18vyit': {
+      'en': 'Complete',
       'es': '',
     },
   },
@@ -1328,10 +1564,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // webNav
   {
-    'gdxoe5i6': {
-      'en': 'Search',
-      'es': '',
-    },
     '2rqutu6f': {
       'en': 'Dashboard',
       'es': '',
@@ -1373,224 +1605,22 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // officer_Details_main
-  {
-    '4ajlzd9k': {
-      'en': 'Officer Name',
-      'es': '',
-    },
-    'rl154aag': {
-      'en': 'Position',
-      'es': '',
-    },
-    'brtg6f70': {
-      'en': 'Committee',
-      'es': '',
-    },
-    '6s9vybe9': {
-      'en': 'ACME Co.',
-      'es': '',
-    },
-    '0yivkyzg': {
-      'en': 'Bio',
-      'es': '',
-    },
-    'eb803ahn': {
-      'en': 'Issues',
-      'es': '',
-    },
-    '9wn4ipsy': {
-      'en': 'Generate Quote',
-      'es': '',
-    },
-    'lyx42ywe': {
-      'en': 'View Company',
-      'es': '',
-    },
-  },
-  // dropdown_UserEdit
+  // dropdown_PostEdit
   {
     '7bef1pr2': {
       'en': 'Options',
-      'es': '',
-    },
-    '2yvp4unq': {
-      'en': 'Edit',
-      'es': '',
-    },
-    '56j9zo1d': {
-      'en': 'Assign',
       'es': '',
     },
     'k3k8ba1y': {
       'en': 'Share',
       'es': '',
     },
+    '2yvp4unq': {
+      'en': 'Edit',
+      'es': '',
+    },
     'aypcenbp': {
       'en': 'Delete',
-      'es': '',
-    },
-  },
-  // projectDetails_alt
-  {
-    '7omxrqju': {
-      'en': 'ACME Co.',
-      'es': '',
-    },
-    '0htkm1ze': {
-      'en': 'Contracts for New Opportunities',
-      'es': '',
-    },
-    'mty1cq2u': {
-      'en': 'Assigned To',
-      'es': '',
-    },
-    '6a4gpca2': {
-      'en': 'Randy Rudolph',
-      'es': '',
-    },
-    'znjgzlp7': {
-      'en': 'name@domain.com',
-      'es': '',
-    },
-    'nspwlbx0': {
-      'en': 'Next Action',
-      'es': '',
-    },
-    'g0j31pfs': {
-      'en': 'Tuesday, 10:00am',
-      'es': '',
-    },
-    '7n5a0dal': {
-      'en': 'In Progress',
-      'es': '',
-    },
-    'xkaj4s0x': {
-      'en': 'Activity',
-      'es': '',
-    },
-    'f10qj08y': {
-      'en': 'FlutterFlow CRM App:',
-      'es': '',
-    },
-    'jzdk4uq5': {
-      'en': ' Begin Work',
-      'es': '',
-    },
-    'fn753r5f': {
-      'en': 'SOW Change Order',
-      'es': '',
-    },
-    'efmh2y11': {
-      'en': 'FlutterFlow CRM App',
-      'es': '',
-    },
-    'g16wwwq8': {
-      'en': 'Jul 8, at 4:31pm',
-      'es': '',
-    },
-    'un4vqonm': {
-      'en': 'Jeremiah Goldsten ',
-      'es': '',
-    },
-    'erh23bb7': {
-      'en': 'accepted a request',
-      'es': '',
-    },
-    'c6hahnz5': {
-      'en': 'SOW Change Order',
-      'es': '',
-    },
-    '1s1vw7q7': {
-      'en': 'FlutterFlow CRM App',
-      'es': '',
-    },
-    'wm57rd5o': {
-      'en':
-          '"Notifications and reminders informing users about upcoming classes and training schedules will be sent to them via email, SMS or notifications within the application."',
-      'es': '',
-    },
-    'ohixt36b': {
-      'en': 'Jul 8, at 4:30pm',
-      'es': '',
-    },
-    'pycp12ox': {
-      'en': 'Randy Rudolph ',
-      'es': '',
-    },
-    'wjiskcqf': {
-      'en': 'sent a SOW Change Order for ',
-      'es': '',
-    },
-    'vziuqb0m': {
-      'en': 'FlutterFlow CRM APP',
-      'es': '',
-    },
-    'fwei1fzm': {
-      'en': 'SOW Change Order',
-      'es': '',
-    },
-    'v3m92v7x': {
-      'en': 'FlutterFlow CRM App',
-      'es': '',
-    },
-    '932swzdb': {
-      'en':
-          '"Please review the updates to this document and get back with me."',
-      'es': '',
-    },
-    'zr5juumt': {
-      'en': 'Jul 8, at 2:20pm',
-      'es': '',
-    },
-    'fc47ta4m': {
-      'en': 'Contracts',
-      'es': '',
-    },
-    '80y4fnjn': {
-      'en': 'Updates to Existing App',
-      'es': '',
-    },
-    'k9gh7u2q': {
-      'en':
-          'Additional Details around this contract and who is working on it in this card!',
-      'es': '',
-    },
-    'j3izkhtl': {
-      'en': 'Contract Details',
-      'es': '',
-    },
-    'fas7t5sl': {
-      'en': '\$210,000',
-      'es': '',
-    },
-    'shavs3b5': {
-      'en': 'Mark as Complete',
-      'es': '',
-    },
-    'bzdg5j8e': {
-      'en': 'New FlutterFlow App',
-      'es': '',
-    },
-    'eqic5jkv': {
-      'en':
-          'The user can browse through our extensive catalog of fitness classes by filtering based on class type, location, time, and instructor. Each class will have detailed descriptions of the program, instructors, timings, availability, and rates.',
-      'es': '',
-    },
-    'q1lpod0h': {
-      'en': 'Contract Details',
-      'es': '',
-    },
-    'zfcxrafs': {
-      'en': '\$67,000',
-      'es': '',
-    },
-    '45sg8wl8': {
-      'en': 'Mark as Complete',
-      'es': '',
-    },
-    'mlsqckiu': {
-      'en': 'Project Details',
       'es': '',
     },
   },
@@ -1702,10 +1732,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'ACME Co.',
       'es': '',
     },
-    'lou85tkj': {
-      'en': 'Donate',
-      'es': '',
-    },
   },
   // DonationBottomSheet
   {
@@ -1752,28 +1778,64 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Change Jurisdiction',
       'es': '',
     },
-    'w89wiun4': {
-      'en': 'City',
-      'es': '',
-    },
-    'cfchqsfl': {
-      'en': '',
-      'es': '',
-    },
-    'qwz67zqy': {
+    'z1q40x5q': {
       'en': 'County',
       'es': '',
     },
-    'yvdt5muv': {
-      'en': '',
+    '09yy26j1': {
+      'en': 'Search for an item...',
       'es': '',
     },
-    'dt27krxz': {
+    'axt9pbkk': {
+      'en': 'Baltimore',
+      'es': '',
+    },
+    'vcwupieb': {
+      'en': 'City',
+      'es': '',
+    },
+    'xk7nyfhz': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    'nycmgbe8': {
+      'en': '1st',
+      'es': '',
+    },
+    '2r6in1cf': {
+      'en': '2nd',
+      'es': '',
+    },
+    'shxnhn25': {
+      'en': '3rd',
+      'es': '',
+    },
+    '02jt5m7x': {
+      'en': '4th',
+      'es': '',
+    },
+    '5nls5mzf': {
+      'en': '5th',
+      'es': '',
+    },
+    'ehkbd9mh': {
+      'en': '6th',
+      'es': '',
+    },
+    'whyokq7g': {
+      'en': '7th',
+      'es': '',
+    },
+    'i89p8fnl': {
+      'en': '8th',
+      'es': '',
+    },
+    'womdc1uq': {
       'en': 'District',
       'es': '',
     },
-    '5kt3oyz6': {
-      'en': '',
+    '5ma6m92n': {
+      'en': 'Search for an item...',
       'es': '',
     },
     'sjdmeovd': {
@@ -1909,7 +1971,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // modal_Delete
+  // modal_DeleteAcc
   {
     'jegsghh1': {
       'en': 'Are you sure you want to delete?',
@@ -1926,6 +1988,164 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'aapmxmgx': {
       'en': 'Confirm',
+      'es': '',
+    },
+  },
+  // PostComment
+  {
+    'jur6x2ie': {
+      'en': '',
+      'es': '',
+    },
+    'fbqhn7g2': {
+      'en': 'Leave post here...',
+      'es': '',
+    },
+    'pktz67nk': {
+      'en': '',
+      'es': '',
+    },
+    'wnhenhy3': {
+      'en': 'Leave reply here...',
+      'es': '',
+    },
+  },
+  // dropdown_CommentEdit
+  {
+    'pj7obili': {
+      'en': 'Options',
+      'es': '',
+    },
+    'q222fxl9': {
+      'en': 'Share',
+      'es': '',
+    },
+    'kb7h3kc4': {
+      'en': 'Edit',
+      'es': '',
+    },
+    'tn4z6prx': {
+      'en': 'Delete',
+      'es': '',
+    },
+  },
+  // modal_DeleteComm
+  {
+    '5tlol58l': {
+      'en': 'Delete comment?',
+      'es': '',
+    },
+    '1fz3pec5': {
+      'en': 'This action is unrecoverable.',
+      'es': '',
+    },
+    '5bz158id': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'hsda70js': {
+      'en': 'Confirm',
+      'es': '',
+    },
+  },
+  // candidatePost
+  {
+    '79gswsfu': {
+      'en': 'Create Post',
+      'es': '',
+    },
+    'dlyk2sys': {
+      'en': 'Take the pulse directly from your base.',
+      'es': '',
+    },
+    '4nogojf2': {
+      'en': 'Add Image',
+      'es': '',
+    },
+    '6vkiwp2q': {
+      'en': 'Title',
+      'es': '',
+    },
+    '2eugadbq': {
+      'en': 'Declaration of...',
+      'es': '',
+    },
+    '18pwrz4z': {
+      'en': 'Description',
+      'es': '',
+    },
+    '8rwmw8q5': {
+      'en': 'We the people...',
+      'es': '',
+    },
+    '6snkf9je': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'dqzakmnv': {
+      'en': 'Post',
+      'es': '',
+    },
+  },
+  // userPost
+  {
+    'sf94wtm7': {
+      'en': 'Create Post',
+      'es': '',
+    },
+    '5bgi2ma4': {
+      'en': 'Start the conversation yourself.',
+      'es': '',
+    },
+    'h1hi811b': {
+      'en': 'Title',
+      'es': '',
+    },
+    'igdanlze': {
+      'en': 'Declaration of...',
+      'es': '',
+    },
+    '5w0jmnaf': {
+      'en': 'Description',
+      'es': '',
+    },
+    'y80toht2': {
+      'en': 'We the people...',
+      'es': '',
+    },
+    'sdsfb69t': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'ur03dz7x': {
+      'en': 'Post',
+      'es': '',
+    },
+  },
+  // Comment
+  {
+    'n00p2z17': {
+      'en': 'likes',
+      'es': '',
+    },
+    'tuukijc1': {
+      'en': 'dislikes',
+      'es': '',
+    },
+    't2emfnoj': {
+      'en': 'Reply',
+      'es': '',
+    },
+    'vvl9pkuo': {
+      'en': 'likes',
+      'es': '',
+    },
+    'rpuq07tn': {
+      'en': 'dislikes',
+      'es': '',
+    },
+    'xtsqwhsv': {
+      'en': 'Reply',
       'es': '',
     },
   },
@@ -2092,11 +2312,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'hxsxj681': {
-      'en': '',
+      'en':
+          'In order to upload images (profile), this app may need permission to access the camera',
       'es': '',
     },
     'e7agr7ys': {
-      'en': '',
+      'en':
+          'In order to upload images (profile), this app may need permission to access the photo library',
       'es': '',
     },
     'bae8is0v': {

@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'officer_details_model.dart';
 export 'officer_details_model.dart';
 
@@ -21,13 +22,13 @@ class OfficerDetailsWidget extends StatefulWidget {
     super.key,
     bool? showBack,
     required this.officerRef,
-  })  : showBack = showBack ?? true;
+  }) : showBack = showBack ?? true;
 
   final bool showBack;
   final DocumentReference? officerRef;
 
   @override
-  _OfficerDetailsWidgetState createState() => _OfficerDetailsWidgetState();
+  State<OfficerDetailsWidget> createState() => _OfficerDetailsWidgetState();
 }
 
 class _OfficerDetailsWidgetState extends State<OfficerDetailsWidget>
@@ -388,43 +389,40 @@ class _OfficerDetailsWidgetState extends State<OfficerDetailsWidget>
                                   ).animateOnPageLoad(animationsMap[
                                       'imageOnPageLoadAnimation']!),
                                 ),
-                                if (widget.showBack == true)
-                                  Align(
-                                    alignment:
-                                        const AlignmentDirectional(-0.93, -0.6),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'OFFICER_DETAILS_Card_s148mjgp_ON_TAP');
-                                        logFirebaseEvent('Card_navigate_back');
-                                        context.safePop();
-                                      },
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: const Color(0xFFF5F5F5),
-                                        elevation: 3.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(100.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Icon(
-                                            Icons.arrow_back_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 24.0,
-                                          ),
+                                Align(
+                                  alignment: const AlignmentDirectional(-0.93, -0.6),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'OFFICER_DETAILS_Card_s148mjgp_ON_TAP');
+                                      logFirebaseEvent('Card_navigate_back');
+                                      context.safePop();
+                                    },
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: const Color(0xFFF5F5F5),
+                                      elevation: 3.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Icon(
+                                          Icons.arrow_back_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 24.0,
                                         ),
                                       ),
-                                    ).animateOnPageLoad(animationsMap[
-                                        'cardOnPageLoadAnimation']!),
-                                  ),
+                                    ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'cardOnPageLoadAnimation']!),
+                                ),
                                 Align(
                                   alignment: const AlignmentDirectional(0.0, 1.0),
                                   child: Padding(
@@ -1102,16 +1100,19 @@ class _OfficerDetailsWidgetState extends State<OfficerDetailsWidget>
                                   backgroundColor: Colors.transparent,
                                   context: context,
                                   builder: (context) {
-                                    return Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: SizedBox(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.7,
-                                        child: DonationBottomSheetWidget(
-                                          candidateName:
-                                              officerDetailsOfficialsRecord
-                                                  .displayName,
+                                    return WebViewAware(
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.7,
+                                          child: DonationBottomSheetWidget(
+                                            candidateName:
+                                                officerDetailsOfficialsRecord
+                                                    .displayName,
+                                          ),
                                         ),
                                       ),
                                     );

@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -118,12 +120,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : const MainOfficersListWidget(),
             ),
             FFRoute(
-              name: 'Main_Elections',
-              path: 'mainElections',
+              name: 'Main_ElectionsDeprecated',
+              path: 'mainElectionsDeprecated',
               requireAuth: true,
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'Main_Elections')
-                  : const MainElectionsWidget(),
+              builder: (context, params) => const MainElectionsDeprecatedWidget(),
             ),
             FFRoute(
               name: 'Main_Notifications',
@@ -148,6 +148,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'candidateDetails',
               path: 'candidateDetails',
+              requireAuth: true,
               builder: (context, params) => CandidateDetailsWidget(
                 showBack: params.getParam('showBack', ParamType.bool),
                 candidateRef: params.getParam('candidateRef',
@@ -182,10 +183,44 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 officerRef: params.getParam('officerRef',
                     ParamType.DocumentReference, false, ['officials']),
               ),
+            ),
+            FFRoute(
+              name: 'policyDetails',
+              path: 'policyDetails',
+              requireAuth: true,
+              builder: (context, params) => PolicyDetailsWidget(
+                policyTitle: params.getParam('policyTitle', ParamType.String),
+                policyDetails:
+                    params.getParam('policyDetails', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'PostDetails',
+              path: 'postDetails',
+              requireAuth: true,
+              builder: (context, params) => PostDetailsWidget(
+                postRef: params.getParam(
+                    'postRef', ParamType.DocumentReference, false, ['posts']),
+              ),
+            ),
+            FFRoute(
+              name: 'candidate_Dashboard',
+              path: 'candidateDashboard',
+              requireAuth: true,
+              builder: (context, params) => const CandidateDashboardWidget(),
+            ),
+            FFRoute(
+              name: 'Main_Elections',
+              path: 'mainElections',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'Main_Elections')
+                  : const MainElectionsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -370,7 +405,7 @@ class FFRoute {
                     fit: BoxFit.cover,
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

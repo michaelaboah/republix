@@ -1,5 +1,5 @@
 import '/components/main_logo_small/main_logo_small_widget.dart';
-import '/components/modals/modal_welcome/modal_welcome_widget.dart';
+import '/components/modals/modal_onboarding/modal_onboarding_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,6 +8,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'modal_success_model.dart';
 export 'modal_success_model.dart';
 
@@ -15,7 +16,7 @@ class ModalSuccessWidget extends StatefulWidget {
   const ModalSuccessWidget({super.key});
 
   @override
-  _ModalSuccessWidgetState createState() => _ModalSuccessWidgetState();
+  State<ModalSuccessWidget> createState() => _ModalSuccessWidgetState();
 }
 
 class _ModalSuccessWidgetState extends State<ModalSuccessWidget>
@@ -443,11 +444,13 @@ class _ModalSuccessWidgetState extends State<ModalSuccessWidget>
                                 barrierColor: Colors.transparent,
                                 context: context,
                                 builder: (context) {
-                                  return Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: const SizedBox(
-                                      height: double.infinity,
-                                      child: ModalWelcomeWidget(),
+                                  return WebViewAware(
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: const SizedBox(
+                                        height: double.infinity,
+                                        child: ModalOnboardingWidget(),
+                                      ),
                                     ),
                                   );
                                 },

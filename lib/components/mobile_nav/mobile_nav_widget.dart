@@ -22,7 +22,7 @@ class MobileNavWidget extends StatefulWidget {
   final Widget? iconFive;
 
   @override
-  _MobileNavWidgetState createState() => _MobileNavWidgetState();
+  State<MobileNavWidget> createState() => _MobileNavWidgetState();
 }
 
 class _MobileNavWidgetState extends State<MobileNavWidget> {
@@ -212,7 +212,7 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                   logFirebaseEvent('Column_navigate_to');
 
                   context.pushNamed(
-                    'Main_Elections',
+                    'Main_ElectionsDeprecated',
                     extra: <String, dynamic>{
                       kTransitionInfoKey: const TransitionInfo(
                         hasTransition: true,

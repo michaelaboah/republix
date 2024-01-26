@@ -6,6 +6,7 @@ import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class CandidatesRecord extends FirestoreRecord {
   CandidatesRecord._(
@@ -105,6 +106,21 @@ class CandidatesRecord extends FirestoreRecord {
   DocumentReference? get electionRef => _electionRef;
   bool hasElectionRef() => _electionRef != null;
 
+  // "youtube_links" field.
+  List<String>? _youtubeLinks;
+  List<String> get youtubeLinks => _youtubeLinks ?? const [];
+  bool hasYoutubeLinks() => _youtubeLinks != null;
+
+  // "donation_clicks" field.
+  int? _donationClicks;
+  int get donationClicks => _donationClicks ?? 0;
+  bool hasDonationClicks() => _donationClicks != null;
+
+  // "page_views" field.
+  int? _pageViews;
+  int get pageViews => _pageViews ?? 0;
+  bool hasPageViews() => _pageViews != null;
+
   void _initializeFields() {
     _displayName = snapshotData['display_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -128,6 +144,9 @@ class CandidatesRecord extends FirestoreRecord {
     _followers = getDataList(snapshotData['followers']);
     _donationLink = snapshotData['donation_link'] as String?;
     _electionRef = snapshotData['election_ref'] as DocumentReference?;
+    _youtubeLinks = getDataList(snapshotData['youtube_links']);
+    _donationClicks = castToType<int>(snapshotData['donation_clicks']);
+    _pageViews = castToType<int>(snapshotData['page_views']);
   }
 
   static CollectionReference get collection =>
@@ -181,6 +200,8 @@ Map<String, dynamic> createCandidatesRecordData({
   String? comitteeName,
   String? donationLink,
   DocumentReference? electionRef,
+  int? donationClicks,
+  int? pageViews,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -200,6 +221,8 @@ Map<String, dynamic> createCandidatesRecordData({
       'comittee_name': comitteeName,
       'donation_link': donationLink,
       'election_ref': electionRef,
+      'donation_clicks': donationClicks,
+      'page_views': pageViews,
     }.withoutNulls,
   );
 
@@ -235,7 +258,10 @@ class CandidatesRecordDocumentEquality implements Equality<CandidatesRecord> {
         e1?.comitteeName == e2?.comitteeName &&
         listEquality.equals(e1?.followers, e2?.followers) &&
         e1?.donationLink == e2?.donationLink &&
-        e1?.electionRef == e2?.electionRef;
+        e1?.electionRef == e2?.electionRef &&
+        listEquality.equals(e1?.youtubeLinks, e2?.youtubeLinks) &&
+        e1?.donationClicks == e2?.donationClicks &&
+        e1?.pageViews == e2?.pageViews;
   }
 
   @override
@@ -257,7 +283,10 @@ class CandidatesRecordDocumentEquality implements Equality<CandidatesRecord> {
         e?.comitteeName,
         e?.followers,
         e?.donationLink,
-        e?.electionRef
+        e?.electionRef,
+        e?.youtubeLinks,
+        e?.donationClicks,
+        e?.pageViews
       ]);
 
   @override

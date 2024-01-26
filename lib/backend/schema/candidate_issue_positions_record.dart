@@ -37,8 +37,8 @@ class CandidateIssuePositionsRecord extends FirestoreRecord {
           : FirebaseFirestore.instance
               .collectionGroup('candidate_issue_positions');
 
-  static DocumentReference createDoc(DocumentReference parent) =>
-      parent.collection('candidate_issue_positions').doc();
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('candidate_issue_positions').doc(id);
 
   static Stream<CandidateIssuePositionsRecord> getDocument(
           DocumentReference ref) =>

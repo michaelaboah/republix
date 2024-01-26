@@ -22,7 +22,7 @@ class PulpitBottomSheetWidget extends StatefulWidget {
   final DocumentReference? candidateRef;
 
   @override
-  _PulpitBottomSheetWidgetState createState() =>
+  State<PulpitBottomSheetWidget> createState() =>
       _PulpitBottomSheetWidgetState();
 }
 

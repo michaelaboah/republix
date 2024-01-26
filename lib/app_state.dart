@@ -36,6 +36,9 @@ class FFAppState extends ChangeNotifier {
       _userAddress =
           await secureStorage.getString('ff_userAddress') ?? _userAddress;
     });
+    await _safeInitAsync(() async {
+      _onboarded = await secureStorage.getBool('ff_onboarded') ?? _onboarded;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -71,6 +74,17 @@ class FFAppState extends ChangeNotifier {
 
   void deleteUserAddress() {
     secureStorage.delete(key: 'ff_userAddress');
+  }
+
+  bool _onboarded = false;
+  bool get onboarded => _onboarded;
+  set onboarded(bool value) {
+    _onboarded = value;
+    secureStorage.setBool('ff_onboarded', value);
+  }
+
+  void deleteOnboarded() {
+    secureStorage.delete(key: 'ff_onboarded');
   }
 }
 

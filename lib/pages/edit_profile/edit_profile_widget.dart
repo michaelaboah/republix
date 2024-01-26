@@ -1,14 +1,16 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/edit_profile_photo/edit_profile_photo_widget.dart';
-import '/components/modals/modal_delete/modal_delete_widget.dart';
+import '/components/modals/modal_delete_acc/modal_delete_acc_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
@@ -16,7 +18,7 @@ class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({super.key});
 
   @override
-  _EditProfileWidgetState createState() => _EditProfileWidgetState();
+  State<EditProfileWidget> createState() => _EditProfileWidgetState();
 }
 
 class _EditProfileWidgetState extends State<EditProfileWidget> {
@@ -30,6 +32,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model = createModel(context, () => EditProfileModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'editProfile'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('EDIT_PROFILE_editProfile_ON_INIT_STATE');
+    });
+
     _model.yourNameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();
@@ -159,11 +166,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             barrierColor: FlutterFlowTheme.of(context).accent4,
                             context: context,
                             builder: (context) {
-                              return Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: const SizedBox(
-                                  height: 360.0,
-                                  child: EditProfilePhotoWidget(),
+                              return WebViewAware(
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: const SizedBox(
+                                    height: 360.0,
+                                    child: EditProfilePhotoWidget(),
+                                  ),
                                 ),
                               );
                             },
@@ -345,9 +354,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         enableDrag: false,
                         context: context,
                         builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: const ModalDeleteWidget(),
+                          return WebViewAware(
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: const ModalDeleteAccWidget(),
+                            ),
                           );
                         },
                       ).then((value) => safeSetState(() {}));

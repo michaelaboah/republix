@@ -21,7 +21,7 @@ class CustomSwitchTileWidget extends StatefulWidget {
   final DocumentReference? issueRef;
 
   @override
-  _CustomSwitchTileWidgetState createState() => _CustomSwitchTileWidgetState();
+  State<CustomSwitchTileWidget> createState() => _CustomSwitchTileWidgetState();
 }
 
 class _CustomSwitchTileWidgetState extends State<CustomSwitchTileWidget> {

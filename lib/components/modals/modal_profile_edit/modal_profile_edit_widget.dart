@@ -17,7 +17,7 @@ class ModalProfileEditWidget extends StatefulWidget {
   const ModalProfileEditWidget({super.key});
 
   @override
-  _ModalProfileEditWidgetState createState() => _ModalProfileEditWidgetState();
+  State<ModalProfileEditWidget> createState() => _ModalProfileEditWidgetState();
 }
 
 class _ModalProfileEditWidgetState extends State<ModalProfileEditWidget>

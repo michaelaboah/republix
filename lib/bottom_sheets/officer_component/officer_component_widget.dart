@@ -1,5 +1,5 @@
 import '/backend/backend.dart';
-import '/components/dropdown_user_edit/dropdown_user_edit_widget.dart';
+import '/components/dropdown_post_edit/dropdown_post_edit_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,6 +7,7 @@ import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'officer_component_model.dart';
 export 'officer_component_model.dart';
 
@@ -25,7 +26,7 @@ class OfficerComponentWidget extends StatefulWidget {
   final String? photoUrlPath;
 
   @override
-  _OfficerComponentWidgetState createState() => _OfficerComponentWidgetState();
+  State<OfficerComponentWidget> createState() => _OfficerComponentWidgetState();
 }
 
 class _OfficerComponentWidgetState extends State<OfficerComponentWidget>
@@ -324,7 +325,9 @@ class _OfficerComponentWidgetState extends State<OfficerComponentWidget>
                           builder: (dialogContext) {
                             return const Material(
                               color: Colors.transparent,
-                              child: DropdownUserEditWidget(),
+                              child: WebViewAware(
+                                child: DropdownPostEditWidget(),
+                              ),
                             );
                           },
                         ).then((value) => setState(() {}));
