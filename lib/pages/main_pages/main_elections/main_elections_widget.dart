@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -930,10 +929,10 @@ class _MainElectionsWidgetState extends State<MainElectionsWidget>
                                                                             decoration:
                                                                                 BoxDecoration(
                                                                               image: DecorationImage(
-                                                                                fit: BoxFit.fill,
-                                                                                image: CachedNetworkImageProvider(
+                                                                                fit: BoxFit.cover,
+                                                                                image: Image.network(
                                                                                   listViewCandidatesRecord.photoUrl,
-                                                                                ),
+                                                                                ).image,
                                                                               ),
                                                                               shape: BoxShape.circle,
                                                                               border: Border.all(
