@@ -1,8 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'modal_delete_comm_widget.dart' show ModalDeleteCommWidget;
+import 'modal_confirm_deletion_widget.dart' show ModalConfirmDeletionWidget;
 import 'package:flutter/material.dart';
 
-class ModalDeleteCommModel extends FlutterFlowModel<ModalDeleteCommWidget> {
+class ModalConfirmDeletionModel
+    extends FlutterFlowModel<ModalConfirmDeletionWidget> {
   /// Initialization and disposal methods.
 
   @override

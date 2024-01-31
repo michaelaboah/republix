@@ -16,16 +16,14 @@ class CandidateComponentWidget extends StatefulWidget {
     required this.candidateName,
     required this.partyInitial,
     this.photoUrlPath,
-    this.numViews,
-    this.numPosts,
+    required this.numOfFollowers,
   });
 
   final DocumentReference? candidateRef;
   final String? candidateName;
   final String? partyInitial;
   final String? photoUrlPath;
-  final int? numViews;
-  final int? numPosts;
+  final int? numOfFollowers;
 
   @override
   State<CandidateComponentWidget> createState() =>
@@ -254,18 +252,22 @@ class _CandidateComponentWidgetState extends State<CandidateComponentWidget>
                                     FlutterFlowTheme.of(context).secondaryText,
                                 size: 20.0,
                               ),
-                              Text(
-                                formatNumber(
-                                  widget.numViews,
-                                  formatType: FormatType.compact,
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    4.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  formatNumber(
+                                    widget.numOfFollowers,
+                                    formatType: FormatType.compact,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Plus Jakarta Sans',
+                                        color: const Color(0xFF7E71FE),
+                                        fontSize: 14.0,
+                                      ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF7E71FE),
-                                      fontSize: 14.0,
-                                    ),
                               ),
                             ],
                           ),

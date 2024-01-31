@@ -108,7 +108,6 @@ final parametersBuilderMap =
   'auth_Create': ParameterData.none(),
   'Main_Home': ParameterData.none(),
   'Main_officersList': ParameterData.none(),
-  'Main_ElectionsDeprecated': ParameterData.none(),
   'Main_Notifications': ParameterData.none(),
   'Main_profilePage': ParameterData.none(),
   'editProfile': ParameterData.none(),

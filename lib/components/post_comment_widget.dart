@@ -90,169 +90,189 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
             children: [
               Builder(
                 builder: (context) {
-                  if ((widget.commentRef != null) &&
-                      (widget.userRef == currentUserReference)) {
-                    return Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 4.0, 8.0),
-                              child: StreamBuilder<CommentsRecord>(
-                                stream: CommentsRecord.getDocument(
-                                    widget.commentRef!),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
+                  if (widget.commentRef != null) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              8.0, 8.0, 8.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 4.0, 8.0),
+                                  child: StreamBuilder<CommentsRecord>(
+                                    stream: CommentsRecord.getDocument(
+                                        widget.commentRef!),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final editMessageFieldCommentsRecord =
+                                          snapshot.data!;
+                                      return TextFormField(
+                                        controller: _model
+                                                .editMessageFieldController ??=
+                                            TextEditingController(
+                                          text: editMessageFieldCommentsRecord
+                                              .text,
+                                        ),
+                                        focusNode:
+                                            _model.editMessageFieldFocusNode,
+                                        onFieldSubmitted: (_) async {
+                                          logFirebaseEvent(
+                                              'POST_COMMENT_EditMessageField_ON_TEXTFIE');
+                                          // Edit Users Comment
+                                          logFirebaseEvent(
+                                              'EditMessageField_EditUsersComment');
+
+                                          await widget.commentRef!.update({
+                                            ...createCommentsRecordData(
+                                              text: _model
+                                                  .editMessageFieldController
+                                                  .text,
+                                            ),
+                                            ...mapToFirestore(
+                                              {
+                                                'date': FieldValue
+                                                    .serverTimestamp(),
+                                              },
+                                            ),
+                                          });
+                                          logFirebaseEvent(
+                                              'EditMessageField_bottom_sheet');
+                                          Navigator.pop(context);
+                                        },
+                                        textCapitalization:
+                                            TextCapitalization.sentences,
+                                        textInputAction: TextInputAction.send,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    fontSize: 14.0,
+                                                  ),
+                                          hintStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelLarge
+                                                  .override(
+                                                    fontFamily:
+                                                        'Plus Jakarta Sans',
+                                                    fontSize: 14.0,
+                                                  ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 2.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          contentPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 12.0, 0.0),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              fontSize: 14.0,
+                                            ),
+                                        maxLines: null,
+                                        minLines: 1,
+                                        cursorColor:
                                             FlutterFlowTheme.of(context)
                                                 .primary,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  final editMessageFieldCommentsRecord =
-                                      snapshot.data!;
-                                  return TextFormField(
-                                    controller:
-                                        _model.editMessageFieldController ??=
-                                            TextEditingController(
-                                      text: editMessageFieldCommentsRecord.text,
-                                    ),
-                                    focusNode: _model.editMessageFieldFocusNode,
-                                    onFieldSubmitted: (_) async {
-                                      logFirebaseEvent(
-                                          'POST_COMMENT_EditMessageField_ON_TEXTFIE');
-                                      // Edit Users Comment
-                                      logFirebaseEvent(
-                                          'EditMessageField_EditUsersComment');
-
-                                      await widget.commentRef!.update({
-                                        ...createCommentsRecordData(
-                                          text: _model
-                                              .editMessageFieldController.text,
-                                        ),
-                                        ...mapToFirestore(
-                                          {
-                                            'date':
-                                                FieldValue.serverTimestamp(),
-                                          },
-                                        ),
-                                      });
-                                      logFirebaseEvent(
-                                          'EditMessageField_bottom_sheet');
-                                      Navigator.pop(context);
+                                        validator: _model
+                                            .editMessageFieldControllerValidator
+                                            .asValidator(context),
+                                      );
                                     },
-                                    textCapitalization:
-                                        TextCapitalization.sentences,
-                                    textInputAction: TextInputAction.send,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            fontSize: 14.0,
-                                          ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            fontSize: 14.0,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 2.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              12.0, 0.0, 12.0, 0.0),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          fontSize: 14.0,
-                                        ),
-                                    maxLines: null,
-                                    minLines: 1,
-                                    cursorColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    validator: _model
-                                        .editMessageFieldControllerValidator
-                                        .asValidator(context),
-                                  );
+                                  ),
+                                ),
+                              ),
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 20.0,
+                                borderWidth: 1.0,
+                                buttonSize: 35.0,
+                                fillColor:
+                                    FlutterFlowTheme.of(context).alternate,
+                                icon: Icon(
+                                  Icons.close_outlined,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 20.0,
+                                ),
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'POST_COMMENT_close_outlined_ICN_ON_TAP');
+                                  logFirebaseEvent('IconButton_bottom_sheet');
+                                  Navigator.pop(context);
                                 },
                               ),
-                            ),
+                            ],
                           ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 20.0,
-                            borderWidth: 1.0,
-                            buttonSize: 35.0,
-                            fillColor: FlutterFlowTheme.of(context).alternate,
-                            icon: Icon(
-                              Icons.close_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
-                            ),
-                            onPressed: () async {
-                              logFirebaseEvent(
-                                  'POST_COMMENT_close_outlined_ICN_ON_TAP');
-                              logFirebaseEvent('IconButton_bottom_sheet');
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     );
                   } else if (widget.postRef != null) {
                     return Padding(
@@ -328,9 +348,6 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
                                       'postRef': widget.postRef,
                                     },
                                   );
-                                  logFirebaseEvent(
-                                      'PostMessageField_bottom_sheet');
-                                  Navigator.pop(context);
 
                                   setState(() {});
                                 },
@@ -346,7 +363,7 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
                                         fontSize: 14.0,
                                       ),
                                   hintText: FFLocalizations.of(context).getText(
-                                    'fbqhn7g2' /* Leave post here... */,
+                                    'fbqhn7g2' /* Leave comment here... */,
                                   ),
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelLarge
@@ -407,24 +424,6 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
                                     .asValidator(context),
                               ),
                             ),
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 20.0,
-                            borderWidth: 1.0,
-                            buttonSize: 35.0,
-                            fillColor: FlutterFlowTheme.of(context).alternate,
-                            icon: Icon(
-                              Icons.close_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
-                            ),
-                            onPressed: () async {
-                              logFirebaseEvent(
-                                  'POST_COMMENT_close_outlined_ICN_ON_TAP');
-                              logFirebaseEvent('IconButton_bottom_sheet');
-                              Navigator.pop(context);
-                            },
                           ),
                         ],
                       ),
@@ -488,8 +487,6 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
                                       },
                                     ),
                                   });
-                                  logFirebaseEvent('TextField_bottom_sheet');
-                                  Navigator.pop(context);
 
                                   setState(() {});
                                 },
@@ -563,24 +560,6 @@ class _PostCommentWidgetState extends State<PostCommentWidget> {
                                     .asValidator(context),
                               ),
                             ),
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 20.0,
-                            borderWidth: 1.0,
-                            buttonSize: 35.0,
-                            fillColor: FlutterFlowTheme.of(context).alternate,
-                            icon: Icon(
-                              Icons.close_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
-                            ),
-                            onPressed: () async {
-                              logFirebaseEvent(
-                                  'POST_COMMENT_close_outlined_ICN_ON_TAP');
-                              logFirebaseEvent('IconButton_bottom_sheet');
-                              Navigator.pop(context);
-                            },
                           ),
                         ],
                       ),

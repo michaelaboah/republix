@@ -242,7 +242,7 @@ class _WebNavWidgetState extends State<WebNavWidget> {
                       logFirebaseEvent('bg_color_navigate_to');
 
                       context.pushNamed(
-                        'Main_ElectionsDeprecated',
+                        'Main_Elections',
                         extra: <String, dynamic>{
                           kTransitionInfoKey: const TransitionInfo(
                             hasTransition: true,

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -32,11 +31,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     _model = createModel(context, () => EditProfileModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'editProfile'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('EDIT_PROFILE_editProfile_ON_INIT_STATE');
-    });
-
     _model.yourNameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();

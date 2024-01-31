@@ -212,7 +212,7 @@ class _MobileNavWidgetState extends State<MobileNavWidget> {
                   logFirebaseEvent('Column_navigate_to');
 
                   context.pushNamed(
-                    'Main_ElectionsDeprecated',
+                    'Main_Elections',
                     extra: <String, dynamic>{
                       kTransitionInfoKey: const TransitionInfo(
                         hasTransition: true,

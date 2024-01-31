@@ -238,42 +238,48 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget>
                                 },
                               ),
                             ),
-                            Builder(
-                              builder: (context) => FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 40.0,
-                                icon: Icon(
-                                  Icons.ios_share_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 25.0,
-                                ),
-                                onPressed: () async {
-                                  logFirebaseEvent(
-                                      'POST_DETAILS_ios_share_rounded_ICN_ON_TA');
-                                  logFirebaseEvent(
-                                      'IconButton_generate_current_page_link');
-                                  _model.currentPageLink =
-                                      await generateCurrentPageLink(
-                                    context,
-                                    title: postDetailsPostsRecord.postTitle,
-                                    imageUrl: postDetailsPostsRecord.postPhoto,
-                                    description:
-                                        postDetailsPostsRecord.postDescription,
-                                    isShortLink: false,
-                                  );
+                            if (responsiveVisibility(
+                              context: context,
+                              tabletLandscape: false,
+                              desktop: false,
+                            ))
+                              Builder(
+                                builder: (context) => FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 40.0,
+                                  icon: Icon(
+                                    Icons.ios_share_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 25.0,
+                                  ),
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'POST_DETAILS_ios_share_rounded_ICN_ON_TA');
+                                    logFirebaseEvent(
+                                        'IconButton_generate_current_page_link');
+                                    _model.currentPageLink =
+                                        await generateCurrentPageLink(
+                                      context,
+                                      title: postDetailsPostsRecord.postTitle,
+                                      imageUrl:
+                                          postDetailsPostsRecord.postPhoto,
+                                      description: postDetailsPostsRecord
+                                          .postDescription,
+                                      isShortLink: false,
+                                    );
 
-                                  logFirebaseEvent('IconButton_share');
-                                  await Share.share(
-                                    _model.currentPageLink,
-                                    sharePositionOrigin:
-                                        getWidgetBoundingBox(context),
-                                  );
-                                },
+                                    logFirebaseEvent('IconButton_share');
+                                    await Share.share(
+                                      _model.currentPageLink,
+                                      sharePositionOrigin:
+                                          getWidgetBoundingBox(context),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),
@@ -335,13 +341,15 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget>
                                 postDetailsPostsRecord.comments.toList();
                             return ListView.builder(
                               padding: EdgeInsets.zero,
+                              primary: false,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: comments.length,
                               itemBuilder: (context, commentsIndex) {
                                 final commentsItem = comments[commentsIndex];
-                                return SizedBox(
-                                  height: 200.0,
+                                return Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 12.0),
                                   child: CommentWidget(
                                     key: Key(
                                         'Keygdy_${commentsIndex}_of_${comments.length}'),
@@ -421,8 +429,6 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget>
                             'postRef': widget.postRef,
                           },
                         );
-                        logFirebaseEvent('PostMessageField_bottom_sheet');
-                        Navigator.pop(context);
 
                         setState(() {});
                       },
@@ -436,7 +442,7 @@ class _PostDetailsWidgetState extends State<PostDetailsWidget>
                                   fontSize: 14.0,
                                 ),
                         hintText: FFLocalizations.of(context).getText(
-                          'iqrnaof7' /* Leave post here... */,
+                          'iqrnaof7' /* Leave comment here... */,
                         ),
                         hintStyle:
                             FlutterFlowTheme.of(context).labelLarge.override(

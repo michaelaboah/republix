@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/dropdown_more_actions/dropdown_more_actions_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -8,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/flutter_flow_youtube_player.dart';
 import '/pages/candidate/candidate_bottoms/user_post/user_post_widget.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -388,7 +388,6 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                 context: context,
                 tablet: false,
                 tabletLandscape: false,
-                desktop: false,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -541,131 +540,144 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                                     ],
                                                     shape: BoxShape.circle,
                                                   ),
-                                                  child: Stack(
-                                                    children: [
-                                                      if (!_model.isFollowing)
-                                                        FlutterFlowIconButton(
-                                                          borderColor: Colors
-                                                              .transparent,
-                                                          borderRadius: 30.0,
-                                                          borderWidth: 1.0,
-                                                          buttonSize: 50.0,
-                                                          icon: const FaIcon(
-                                                            FontAwesomeIcons
-                                                                .bell,
-                                                            color: Colors.white,
-                                                            size: 30.0,
-                                                          ),
-                                                          onPressed: () async {
-                                                            logFirebaseEvent(
-                                                                'CANDIDATE_DETAILS_PAGE_Follow_ON_TAP');
-                                                            // Add candidate
-                                                            logFirebaseEvent(
-                                                                'Follow_Addcandidate');
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      if (!_model.isFollowing) {
+                                                        return Visibility(
+                                                          visible: !_model
+                                                              .isFollowing,
+                                                          child:
+                                                              FlutterFlowIconButton(
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 30.0,
+                                                            borderWidth: 1.0,
+                                                            buttonSize: 50.0,
+                                                            icon: const FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .bell,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'CANDIDATE_DETAILS_PAGE_Follow_ON_TAP');
+                                                              // Add candidate
+                                                              logFirebaseEvent(
+                                                                  'Follow_Addcandidate');
 
-                                                            await currentUserReference!
-                                                                .update({
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'following':
-                                                                      FieldValue
-                                                                          .arrayUnion([
-                                                                    widget
-                                                                        .candidateRef
-                                                                  ]),
-                                                                },
-                                                              ),
-                                                            });
-                                                            logFirebaseEvent(
-                                                                'Follow_update_page_state');
-                                                            setState(() {
-                                                              _model.isFollowing =
-                                                                  true;
-                                                            });
-                                                            // Add follower to candidate
-                                                            logFirebaseEvent(
-                                                                'Follow_Addfollowertocandidate');
-                                                            unawaited(
-                                                              () async {
-                                                                await candidateDetailsCandidatesRecord
-                                                                    .reference
-                                                                    .update({
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'followers':
-                                                                          FieldValue
-                                                                              .arrayUnion([
-                                                                        currentUserReference
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                              }(),
-                                                            );
-                                                          },
-                                                        ),
-                                                      if (_model.isFollowing)
-                                                        FlutterFlowIconButton(
-                                                          borderColor: Colors
-                                                              .transparent,
-                                                          borderRadius: 30.0,
-                                                          borderWidth: 1.0,
-                                                          buttonSize: 50.0,
-                                                          icon: const FaIcon(
-                                                            FontAwesomeIcons
-                                                                .bellSlash,
-                                                            color: Colors.white,
-                                                            size: 30.0,
+                                                              await currentUserReference!
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'following':
+                                                                        FieldValue
+                                                                            .arrayUnion([
+                                                                      widget
+                                                                          .candidateRef
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  'Follow_update_page_state');
+                                                              setState(() {
+                                                                _model.isFollowing =
+                                                                    true;
+                                                              });
+                                                              // Add follower to candidate
+                                                              logFirebaseEvent(
+                                                                  'Follow_Addfollowertocandidate');
+                                                              unawaited(
+                                                                () async {
+                                                                  await candidateDetailsCandidatesRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'followers':
+                                                                            FieldValue.arrayUnion([
+                                                                          currentUserReference
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                }(),
+                                                              );
+                                                            },
                                                           ),
-                                                          onPressed: () async {
-                                                            logFirebaseEvent(
-                                                                'CANDIDATE_DETAILS_PAGE_UnFollow_ON_TAP');
-                                                            // Remove candidate
-                                                            logFirebaseEvent(
-                                                                'UnFollow_Removecandidate');
+                                                        );
+                                                      } else {
+                                                        return Visibility(
+                                                          visible: _model
+                                                              .isFollowing,
+                                                          child:
+                                                              FlutterFlowIconButton(
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 30.0,
+                                                            borderWidth: 1.0,
+                                                            buttonSize: 50.0,
+                                                            icon: const FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .bellSlash,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 30.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'CANDIDATE_DETAILS_PAGE_UnFollow_ON_TAP');
+                                                              // Remove candidate
+                                                              logFirebaseEvent(
+                                                                  'UnFollow_Removecandidate');
 
-                                                            await currentUserReference!
-                                                                .update({
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'following':
-                                                                      FieldValue
-                                                                          .arrayRemove([
-                                                                    widget
-                                                                        .candidateRef
-                                                                  ]),
-                                                                },
-                                                              ),
-                                                            });
-                                                            logFirebaseEvent(
-                                                                'UnFollow_update_page_state');
-                                                            setState(() {
-                                                              _model.isFollowing =
-                                                                  false;
-                                                            });
-                                                            // Remove follower from candidate
-                                                            logFirebaseEvent(
-                                                                'UnFollow_Removefollowerfromcandidate');
-                                                            unawaited(
-                                                              () async {
-                                                                await candidateDetailsCandidatesRecord
-                                                                    .reference
-                                                                    .update({
-                                                                  ...mapToFirestore(
-                                                                    {
-                                                                      'followers':
-                                                                          FieldValue
-                                                                              .arrayRemove([
-                                                                        currentUserReference
-                                                                      ]),
-                                                                    },
-                                                                  ),
-                                                                });
-                                                              }(),
-                                                            );
-                                                          },
-                                                        ),
-                                                    ],
+                                                              await currentUserReference!
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'following':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      widget
+                                                                          .candidateRef
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  'UnFollow_update_page_state');
+                                                              setState(() {
+                                                                _model.isFollowing =
+                                                                    false;
+                                                              });
+                                                              // Remove follower from candidate
+                                                              logFirebaseEvent(
+                                                                  'UnFollow_Removefollowerfromcandidate');
+                                                              unawaited(
+                                                                () async {
+                                                                  await candidateDetailsCandidatesRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'followers':
+                                                                            FieldValue.arrayRemove([
+                                                                          currentUserReference
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                }(),
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
                                                   ),
                                                 ),
                                               ),
@@ -673,79 +685,68 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                           ),
                                         ),
                                       ),
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.93, -0.4),
-                                        child: Builder(
-                                          builder: (context) => InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              logFirebaseEvent(
-                                                  'CANDIDATE_DETAILS_Card_43mzlf9c_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Card_generate_current_page_link');
-                                              _model.currentPageLink =
-                                                  await generateCurrentPageLink(
-                                                context,
-                                                title:
-                                                    candidateDetailsCandidatesRecord
-                                                        .displayName,
-                                                description:
-                                                    '${candidateDetailsCandidatesRecord.displayName} for ${containerElectionsRecord.electionName}',
-                                              );
+                                      if (!isWeb)
+                                        Align(
+                                          alignment:
+                                              const AlignmentDirectional(0.93, -0.4),
+                                          child: Builder(
+                                            builder: (context) => InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                logFirebaseEvent(
+                                                    'CANDIDATE_DETAILS_Card_43mzlf9c_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Card_generate_current_page_link');
+                                                _model.currentPageLink =
+                                                    await generateCurrentPageLink(
+                                                  context,
+                                                  title:
+                                                      candidateDetailsCandidatesRecord
+                                                          .displayName,
+                                                  description:
+                                                      '${candidateDetailsCandidatesRecord.displayName} for ${containerElectionsRecord.electionName}',
+                                                );
 
-                                              logFirebaseEvent(
-                                                  'Card_custom_action');
-                                              await actions.inspect(
-                                                _model.currentPageLink,
-                                              );
-                                              logFirebaseEvent('Card_share');
-                                              await Share.share(
-                                                _model.currentPageLink,
-                                                sharePositionOrigin:
-                                                    getWidgetBoundingBox(
-                                                        context),
-                                              );
-                                            },
-                                            onLongPress: () async {
-                                              logFirebaseEvent(
-                                                  'CANDIDATE_DETAILS_Card_43mzlf9c_ON_LONG_');
-                                              logFirebaseEvent('Card_share');
-                                              await Share.share(
-                                                '',
-                                                sharePositionOrigin:
-                                                    getWidgetBoundingBox(
-                                                        context),
-                                              );
-                                            },
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color: const Color(0xFFF5F5F5),
-                                              elevation: 3.0,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        100.0),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(10.0),
-                                                child: Icon(
-                                                  Icons.ios_share,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
+                                                if (!isWeb) {
+                                                  logFirebaseEvent(
+                                                      'Card_share');
+                                                  await Share.share(
+                                                    _model.currentPageLink,
+                                                    sharePositionOrigin:
+                                                        getWidgetBoundingBox(
+                                                            context),
+                                                  );
+                                                }
+                                              },
+                                              child: Card(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                color: const Color(0xFFF5F5F5),
+                                                elevation: 3.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: Icon(
+                                                    Icons.ios_share,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 24.0,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'cardOnPageLoadAnimation2']!),
+                                            ).animateOnPageLoad(animationsMap[
+                                                'cardOnPageLoadAnimation2']!),
+                                          ),
                                         ),
-                                      ),
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.94),
@@ -1332,111 +1333,182 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                              child: Builder(
-                                                builder: (context) {
-                                                  final policiesOrIssues =
-                                                      candidateDetailsCandidatesRecord
-                                                          .policies
-                                                          .toList()
-                                                          .take(10)
-                                                          .toList();
-                                                  return ListView.builder(
-                                                    padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount:
-                                                        policiesOrIssues.length,
-                                                    itemBuilder: (context,
-                                                        policiesOrIssuesIndex) {
-                                                      final policiesOrIssuesItem =
-                                                          policiesOrIssues[
-                                                              policiesOrIssuesIndex];
-                                                      return InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          logFirebaseEvent(
-                                                              'CANDIDATE_DETAILS_ListTile_msno5ovo_ON_T');
-                                                          if (policiesOrIssuesItem
-                                                                  .policyDetails ==
-                                                              '') {
-                                                            return;
-                                                          }
+                                            Builder(
+                                              builder: (context) {
+                                                if (candidateDetailsCandidatesRecord
+                                                        .policies.isEmpty) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final policiesOrIssues =
+                                                            candidateDetailsCandidatesRecord
+                                                                .policies
+                                                                .toList()
+                                                                .take(10)
+                                                                .toList();
+                                                        return ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              policiesOrIssues
+                                                                  .length,
+                                                          itemBuilder: (context,
+                                                              policiesOrIssuesIndex) {
+                                                            final policiesOrIssuesItem =
+                                                                policiesOrIssues[
+                                                                    policiesOrIssuesIndex];
+                                                            return InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                logFirebaseEvent(
+                                                                    'CANDIDATE_DETAILS_ListTile_msno5ovo_ON_T');
+                                                                if (policiesOrIssuesItem
+                                                                        .policyDetails ==
+                                                                    '') {
+                                                                  return;
+                                                                }
 
-                                                          logFirebaseEvent(
-                                                              'ListTile_navigate_to');
+                                                                logFirebaseEvent(
+                                                                    'ListTile_navigate_to');
 
-                                                          context.pushNamed(
-                                                            'policyDetails',
-                                                            queryParameters: {
-                                                              'policyTitle':
-                                                                  serializeParam(
-                                                                policiesOrIssuesItem
-                                                                    .policyName,
-                                                                ParamType
-                                                                    .String,
+                                                                context
+                                                                    .pushNamed(
+                                                                  'policyDetails',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'policyTitle':
+                                                                        serializeParam(
+                                                                      policiesOrIssuesItem
+                                                                          .policyName,
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                    'policyDetails':
+                                                                        serializeParam(
+                                                                      policiesOrIssuesItem
+                                                                          .policyDetails,
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: ListTile(
+                                                                title: Text(
+                                                                  policiesOrIssuesItem
+                                                                      .policyName
+                                                                      .maybeHandleOverflow(
+                                                                    maxChars:
+                                                                        50,
+                                                                    replacement:
+                                                                        '…',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge,
+                                                                ),
+                                                                subtitle: Text(
+                                                                  policiesOrIssuesItem
+                                                                      .policyDetails
+                                                                      .maybeHandleOverflow(
+                                                                    maxChars:
+                                                                        70,
+                                                                    replacement:
+                                                                        '…',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium,
+                                                                ),
+                                                                trailing: Icon(
+                                                                  Icons
+                                                                      .arrow_forward_ios,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  size: 20.0,
+                                                                ),
+                                                                tileColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                dense: false,
                                                               ),
-                                                              'policyDetails':
-                                                                  serializeParam(
-                                                                policiesOrIssuesItem
-                                                                    .policyDetails,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        },
-                                                        child: ListTile(
-                                                          title: Text(
-                                                            policiesOrIssuesItem
-                                                                .policyName
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 50,
-                                                              replacement: '…',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleLarge,
-                                                          ),
-                                                          subtitle: Text(
-                                                            policiesOrIssuesItem
-                                                                .policyDetails
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 70,
-                                                              replacement: '…',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelMedium,
-                                                          ),
-                                                          trailing: Icon(
-                                                            Icons
-                                                                .arrow_forward_ios,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryText,
-                                                            size: 20.0,
-                                                          ),
-                                                          tileColor: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          dense: false,
-                                                        ),
-                                                      );
-                                                    },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
                                                   );
-                                                },
-                                              ),
+                                                } else {
+                                                  return Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            '7ypofrwc' /* No Posts */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                fontSize: 34.0,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            '29h6yo6o' /* Don't worry these positions ex... */,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 16.0,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                             ),
                                             Builder(
                                               builder: (context) {
@@ -1514,390 +1586,496 @@ class _CandidateDetailsWidgetState extends State<CandidateDetailsWidget>
                                                 }
                                               },
                                             ),
-                                            Stack(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          18.0, 0.0, 18.0, 0.0),
-                                                  child: StreamBuilder<
-                                                      List<PostsRecord>>(
-                                                    stream: queryPostsRecord(
-                                                      queryBuilder:
-                                                          (postsRecord) =>
-                                                              postsRecord.where(
-                                                        'candidate_ref',
-                                                        isEqualTo:
-                                                            widget.candidateRef,
-                                                      ),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<PostsRecord>
-                                                          listViewPostsRecordList =
-                                                          snapshot.data!;
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            listViewPostsRecordList
-                                                                .length,
-                                                        itemBuilder: (context,
-                                                            listViewIndex) {
-                                                          final listViewPostsRecord =
-                                                              listViewPostsRecordList[
-                                                                  listViewIndex];
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              logFirebaseEvent(
-                                                                  'CANDIDATE_DETAILS_Card_s9hscbwt_ON_TAP');
-                                                              logFirebaseEvent(
-                                                                  'Card_navigate_to');
-
-                                                              context.pushNamed(
-                                                                'PostDetails',
-                                                                queryParameters:
-                                                                    {
-                                                                  'postRef':
-                                                                      serializeParam(
-                                                                    listViewPostsRecord
-                                                                        .reference,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            },
-                                                            child: Card(
-                                                              clipBehavior: Clip
-                                                                  .antiAliasWithSaveLayer,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              elevation: 4.0,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    listViewPostsRecord
-                                                                        .postTitle
-                                                                        .maybeHandleOverflow(
-                                                                      maxChars:
-                                                                          29,
-                                                                      replacement:
-                                                                          '…',
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    maxLines: 1,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Plus Jakarta Sans',
-                                                                          fontSize:
-                                                                              18.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
-                                                                    listViewPostsRecord
-                                                                        .postDescription
-                                                                        .maybeHandleOverflow(
-                                                                      maxChars:
-                                                                          185,
-                                                                      replacement:
-                                                                          '…',
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium,
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          logFirebaseEvent(
-                                                                              'CANDIDATE_DETAILS_Row_ixaf68yp_ON_TAP');
-                                                                          if (listViewPostsRecord
-                                                                              .likes
-                                                                              .contains(currentUserReference)) {
-                                                                            logFirebaseEvent('Row_backend_call');
-
-                                                                            await listViewPostsRecord.reference.update({
-                                                                              ...mapToFirestore(
-                                                                                {
-                                                                                  'likes': FieldValue.arrayRemove([
-                                                                                    currentUserReference
-                                                                                  ]),
-                                                                                },
-                                                                              ),
-                                                                            });
-                                                                          } else {
-                                                                            logFirebaseEvent('Row_backend_call');
-
-                                                                            await listViewPostsRecord.reference.update({
-                                                                              ...mapToFirestore(
-                                                                                {
-                                                                                  'likes': FieldValue.arrayUnion([
-                                                                                    currentUserReference
-                                                                                  ]),
-                                                                                },
-                                                                              ),
-                                                                            });
-                                                                            if (listViewPostsRecord.dislikes.contains(currentUserReference)) {
-                                                                              logFirebaseEvent('Row_backend_call');
-
-                                                                              await listViewPostsRecord.reference.update({
-                                                                                ...mapToFirestore(
-                                                                                  {
-                                                                                    'dislikes': FieldValue.arrayRemove([
-                                                                                      currentUserReference
-                                                                                    ]),
-                                                                                  },
-                                                                                ),
-                                                                              });
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.favorite_border,
-                                                                              color: listViewPostsRecord.likes.contains(currentUserReference) ? FlutterFlowTheme.of(context).secondary : FlutterFlowTheme.of(context).secondaryText,
-                                                                              size: 24.0,
-                                                                            ),
-                                                                            Text(
-                                                                              listViewPostsRecord.likes.length.toString(),
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          logFirebaseEvent(
-                                                                              'CANDIDATE_DETAILS_Row_jelgeegq_ON_TAP');
-                                                                          if (listViewPostsRecord
-                                                                              .dislikes
-                                                                              .contains(currentUserReference)) {
-                                                                            logFirebaseEvent('Row_backend_call');
-
-                                                                            await listViewPostsRecord.reference.update({
-                                                                              ...mapToFirestore(
-                                                                                {
-                                                                                  'dislikes': FieldValue.arrayRemove([
-                                                                                    currentUserReference
-                                                                                  ]),
-                                                                                },
-                                                                              ),
-                                                                            });
-                                                                          } else {
-                                                                            logFirebaseEvent('Row_backend_call');
-
-                                                                            await listViewPostsRecord.reference.update({
-                                                                              ...mapToFirestore(
-                                                                                {
-                                                                                  'dislikes': FieldValue.arrayUnion([
-                                                                                    currentUserReference
-                                                                                  ]),
-                                                                                },
-                                                                              ),
-                                                                            });
-                                                                            if (listViewPostsRecord.likes.contains(currentUserReference)) {
-                                                                              logFirebaseEvent('Row_backend_call');
-
-                                                                              await listViewPostsRecord.reference.update({
-                                                                                ...mapToFirestore(
-                                                                                  {
-                                                                                    'likes': FieldValue.arrayRemove([
-                                                                                      currentUserReference
-                                                                                    ]),
-                                                                                  },
-                                                                                ),
-                                                                              });
-                                                                            } else {
-                                                                              return;
-                                                                            }
-
-                                                                            return;
-                                                                          }
-                                                                        },
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.heart_broken_outlined,
-                                                                              color: listViewPostsRecord.dislikes.contains(currentUserReference) ? FlutterFlowTheme.of(context).secondary : FlutterFlowTheme.of(context).secondaryText,
-                                                                              size: 24.0,
-                                                                            ),
-                                                                            Text(
-                                                                              listViewPostsRecord.dislikes.length.toString(),
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Icon(
-                                                                            Icons.comment,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            size:
-                                                                                24.0,
-                                                                          ),
-                                                                          Text(
-                                                                            formatNumber(
-                                                                              listViewPostsRecord.comments.length,
-                                                                              formatType: FormatType.compact,
-                                                                            ),
-                                                                            style:
-                                                                                FlutterFlowTheme.of(context).bodyMedium,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
+                                            FutureBuilder<int>(
+                                              future: queryPostsRecordCount(
+                                                queryBuilder: (postsRecord) =>
+                                                    postsRecord.where(
+                                                  'candidate_ref',
+                                                  isEqualTo:
+                                                      widget.candidateRef,
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.84, 0.97),
-                                                  child: FlutterFlowIconButton(
-                                                    borderColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    borderRadius: 40.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 55.0,
-                                                    fillColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    icon: Icon(
-                                                      Icons.edit_note,
-                                                      color:
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryText,
-                                                      size: 28.0,
+                                                              .primary,
+                                                        ),
+                                                      ),
                                                     ),
-                                                    onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'CANDIDATE_DETAILS_edit_note_ICN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'IconButton_bottom_sheet');
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return WebViewAware(
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  UserPostWidget(
-                                                                candidateRef:
-                                                                    candidateDetailsCandidatesRecord
-                                                                        .reference,
+                                                  );
+                                                }
+                                                int stackCount = snapshot.data!;
+                                                return Stack(
+                                                  children: [
+                                                    Builder(
+                                                      builder: (context) {
+                                                        if (stackCount > 0) {
+                                                          return Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        18.0,
+                                                                        0.0,
+                                                                        18.0,
+                                                                        0.0),
+                                                            child: StreamBuilder<
+                                                                List<
+                                                                    PostsRecord>>(
+                                                              stream:
+                                                                  queryPostsRecord(
+                                                                queryBuilder:
+                                                                    (postsRecord) =>
+                                                                        postsRecord
+                                                                            .where(
+                                                                  'candidate_ref',
+                                                                  isEqualTo: widget
+                                                                      .candidateRef,
+                                                                ),
                                                               ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                List<PostsRecord>
+                                                                    listViewPostsRecordList =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return ListView
+                                                                    .builder(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  scrollDirection:
+                                                                      Axis.vertical,
+                                                                  itemCount:
+                                                                      listViewPostsRecordList
+                                                                          .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          listViewIndex) {
+                                                                    final listViewPostsRecord =
+                                                                        listViewPostsRecordList[
+                                                                            listViewIndex];
+                                                                    return InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        logFirebaseEvent(
+                                                                            'CANDIDATE_DETAILS_Card_s9hscbwt_ON_TAP');
+                                                                        logFirebaseEvent(
+                                                                            'Card_navigate_to');
+
+                                                                        context
+                                                                            .pushNamed(
+                                                                          'PostDetails',
+                                                                          queryParameters:
+                                                                              {
+                                                                            'postRef':
+                                                                                serializeParam(
+                                                                              listViewPostsRecord.reference,
+                                                                              ParamType.DocumentReference,
+                                                                            ),
+                                                                          }.withoutNulls,
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Card(
+                                                                        clipBehavior:
+                                                                            Clip.antiAliasWithSaveLayer,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        elevation:
+                                                                            4.0,
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8.0),
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(4.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    listViewPostsRecord.postTitle.maybeHandleOverflow(
+                                                                                      maxChars: 29,
+                                                                                      replacement: '…',
+                                                                                    ),
+                                                                                    textAlign: TextAlign.start,
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Plus Jakarta Sans',
+                                                                                          fontSize: 18.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
+                                                                                  if (listViewPostsRecord.postUser == currentUserReference)
+                                                                                    InkWell(
+                                                                                      splashColor: Colors.transparent,
+                                                                                      focusColor: Colors.transparent,
+                                                                                      hoverColor: Colors.transparent,
+                                                                                      highlightColor: Colors.transparent,
+                                                                                      onTap: () async {
+                                                                                        logFirebaseEvent('CANDIDATE_DETAILS_Icon_b4ryjf4z_ON_TAP');
+                                                                                        logFirebaseEvent('Icon_bottom_sheet');
+                                                                                        await showModalBottomSheet(
+                                                                                          isScrollControlled: true,
+                                                                                          backgroundColor: Colors.transparent,
+                                                                                          enableDrag: false,
+                                                                                          context: context,
+                                                                                          builder: (context) {
+                                                                                            return WebViewAware(
+                                                                                              child: Padding(
+                                                                                                padding: MediaQuery.viewInsetsOf(context),
+                                                                                                child: DropdownMoreActionsWidget(
+                                                                                                  postRef: listViewPostsRecord.reference,
+                                                                                                  actionType: 'post',
+                                                                                                ),
+                                                                                              ),
+                                                                                            );
+                                                                                          },
+                                                                                        ).then((value) => safeSetState(() {}));
+                                                                                      },
+                                                                                      child: Icon(
+                                                                                        Icons.keyboard_control,
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        size: 24.0,
+                                                                                      ),
+                                                                                    ),
+                                                                                ],
+                                                                              ),
+                                                                              Text(
+                                                                                listViewPostsRecord.postDescription.maybeHandleOverflow(
+                                                                                  maxChars: 185,
+                                                                                  replacement: '…',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  InkWell(
+                                                                                    splashColor: Colors.transparent,
+                                                                                    focusColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
+                                                                                    onTap: () async {
+                                                                                      logFirebaseEvent('CANDIDATE_DETAILS_Row_ixaf68yp_ON_TAP');
+                                                                                      if (listViewPostsRecord.likes.contains(currentUserReference)) {
+                                                                                        logFirebaseEvent('Row_backend_call');
+
+                                                                                        await listViewPostsRecord.reference.update({
+                                                                                          ...mapToFirestore(
+                                                                                            {
+                                                                                              'likes': FieldValue.arrayRemove([
+                                                                                                currentUserReference
+                                                                                              ]),
+                                                                                            },
+                                                                                          ),
+                                                                                        });
+                                                                                      } else {
+                                                                                        logFirebaseEvent('Row_backend_call');
+
+                                                                                        await listViewPostsRecord.reference.update({
+                                                                                          ...mapToFirestore(
+                                                                                            {
+                                                                                              'likes': FieldValue.arrayUnion([
+                                                                                                currentUserReference
+                                                                                              ]),
+                                                                                            },
+                                                                                          ),
+                                                                                        });
+                                                                                        if (listViewPostsRecord.dislikes.contains(currentUserReference)) {
+                                                                                          logFirebaseEvent('Row_backend_call');
+
+                                                                                          await listViewPostsRecord.reference.update({
+                                                                                            ...mapToFirestore(
+                                                                                              {
+                                                                                                'dislikes': FieldValue.arrayRemove([
+                                                                                                  currentUserReference
+                                                                                                ]),
+                                                                                              },
+                                                                                            ),
+                                                                                          });
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.favorite_border,
+                                                                                          color: listViewPostsRecord.likes.contains(currentUserReference) ? FlutterFlowTheme.of(context).secondary : FlutterFlowTheme.of(context).secondaryText,
+                                                                                          size: 24.0,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          listViewPostsRecord.likes.length.toString(),
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  InkWell(
+                                                                                    splashColor: Colors.transparent,
+                                                                                    focusColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
+                                                                                    onTap: () async {
+                                                                                      logFirebaseEvent('CANDIDATE_DETAILS_Row_jelgeegq_ON_TAP');
+                                                                                      if (listViewPostsRecord.dislikes.contains(currentUserReference)) {
+                                                                                        logFirebaseEvent('Row_backend_call');
+
+                                                                                        await listViewPostsRecord.reference.update({
+                                                                                          ...mapToFirestore(
+                                                                                            {
+                                                                                              'dislikes': FieldValue.arrayRemove([
+                                                                                                currentUserReference
+                                                                                              ]),
+                                                                                            },
+                                                                                          ),
+                                                                                        });
+                                                                                      } else {
+                                                                                        logFirebaseEvent('Row_backend_call');
+
+                                                                                        await listViewPostsRecord.reference.update({
+                                                                                          ...mapToFirestore(
+                                                                                            {
+                                                                                              'dislikes': FieldValue.arrayUnion([
+                                                                                                currentUserReference
+                                                                                              ]),
+                                                                                            },
+                                                                                          ),
+                                                                                        });
+                                                                                        if (listViewPostsRecord.likes.contains(currentUserReference)) {
+                                                                                          logFirebaseEvent('Row_backend_call');
+
+                                                                                          await listViewPostsRecord.reference.update({
+                                                                                            ...mapToFirestore(
+                                                                                              {
+                                                                                                'likes': FieldValue.arrayRemove([
+                                                                                                  currentUserReference
+                                                                                                ]),
+                                                                                              },
+                                                                                            ),
+                                                                                          });
+                                                                                        } else {
+                                                                                          return;
+                                                                                        }
+
+                                                                                        return;
+                                                                                      }
+                                                                                    },
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.heart_broken_outlined,
+                                                                                          color: listViewPostsRecord.dislikes.contains(currentUserReference) ? FlutterFlowTheme.of(context).secondary : FlutterFlowTheme.of(context).secondaryText,
+                                                                                          size: 24.0,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          listViewPostsRecord.dislikes.length.toString(),
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Icon(
+                                                                                        Icons.comment,
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        size: 24.0,
+                                                                                      ),
+                                                                                      Text(
+                                                                                        formatNumber(
+                                                                                          listViewPostsRecord.comments.length,
+                                                                                          formatType: FormatType.compact,
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
                                                             ),
                                                           );
+                                                        } else {
+                                                          return Align(
+                                                            alignment:
+                                                                const AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getText(
+                                                                    '1w01qg28' /* No Posts */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        fontSize:
+                                                                            34.0,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getText(
+                                                                    '9wwzmfff' /* Start the conversation your se... */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Plus Jakarta Sans',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontStyle:
+                                                                            FontStyle.italic,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.84, 0.97),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius: 40.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 55.0,
+                                                        fillColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        icon: Icon(
+                                                          Icons.edit_note,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          size: 28.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          logFirebaseEvent(
+                                                              'CANDIDATE_DETAILS_edit_note_ICN_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'IconButton_bottom_sheet');
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return WebViewAware(
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      UserPostWidget(
+                                                                    candidateRef:
+                                                                        candidateDetailsCandidatesRecord
+                                                                            .reference,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
                                                         },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),

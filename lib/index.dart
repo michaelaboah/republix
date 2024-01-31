@@ -8,8 +8,6 @@ export '/pages/auth_pages/auth_create/auth_create_widget.dart'
 export '/pages/main_pages/main_home/main_home_widget.dart' show MainHomeWidget;
 export '/pages/main_pages/main_officers_list/main_officers_list_widget.dart'
     show MainOfficersListWidget;
-export '/pages/main_pages/main_elections_deprecated/main_elections_deprecated_widget.dart'
-    show MainElectionsDeprecatedWidget;
 export '/pages/main_pages/main_notifications/main_notifications_widget.dart'
     show MainNotificationsWidget;
 export '/pages/main_pages/main_profile_page/main_profile_page_widget.dart'

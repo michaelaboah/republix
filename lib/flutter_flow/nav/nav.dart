@@ -120,12 +120,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : const MainOfficersListWidget(),
             ),
             FFRoute(
-              name: 'Main_ElectionsDeprecated',
-              path: 'mainElectionsDeprecated',
-              requireAuth: true,
-              builder: (context, params) => const MainElectionsDeprecatedWidget(),
-            ),
-            FFRoute(
               name: 'Main_Notifications',
               path: 'mainNotifications',
               requireAuth: true,

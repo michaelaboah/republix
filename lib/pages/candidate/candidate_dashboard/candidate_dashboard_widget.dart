@@ -562,6 +562,7 @@ class _CandidateDashboardWidgetState extends State<CandidateDashboardWidget>
                                         snapshot.data!;
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
+                                      primary: false,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: listViewPostsRecordList.length,

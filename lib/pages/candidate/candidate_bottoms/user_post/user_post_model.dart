@@ -5,14 +5,22 @@ import 'package:flutter/material.dart';
 class UserPostModel extends FlutterFlowModel<UserPostWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for yourName widget.
-  FocusNode? yourNameFocusNode1;
-  TextEditingController? yourNameController1;
-  String? Function(BuildContext, String?)? yourNameController1Validator;
-  // State field(s) for yourName widget.
-  FocusNode? yourNameFocusNode2;
-  TextEditingController? yourNameController2;
-  String? Function(BuildContext, String?)? yourNameController2Validator;
+  // State field(s) for editTitle widget.
+  FocusNode? editTitleFocusNode;
+  TextEditingController? editTitleController;
+  String? Function(BuildContext, String?)? editTitleControllerValidator;
+  // State field(s) for editDesc widget.
+  FocusNode? editDescFocusNode;
+  TextEditingController? editDescController;
+  String? Function(BuildContext, String?)? editDescControllerValidator;
+  // State field(s) for newTitle widget.
+  FocusNode? newTitleFocusNode;
+  TextEditingController? newTitleController;
+  String? Function(BuildContext, String?)? newTitleControllerValidator;
+  // State field(s) for newDescription widget.
+  FocusNode? newDescriptionFocusNode;
+  TextEditingController? newDescriptionController;
+  String? Function(BuildContext, String?)? newDescriptionControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -21,11 +29,17 @@ class UserPostModel extends FlutterFlowModel<UserPostWidget> {
 
   @override
   void dispose() {
-    yourNameFocusNode1?.dispose();
-    yourNameController1?.dispose();
+    editTitleFocusNode?.dispose();
+    editTitleController?.dispose();
 
-    yourNameFocusNode2?.dispose();
-    yourNameController2?.dispose();
+    editDescFocusNode?.dispose();
+    editDescController?.dispose();
+
+    newTitleFocusNode?.dispose();
+    newTitleController?.dispose();
+
+    newDescriptionFocusNode?.dispose();
+    newDescriptionController?.dispose();
   }
 
   /// Action blocks are added here.

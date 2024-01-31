@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/dropdown_comment_edit/dropdown_comment_edit_widget.dart';
+import '/components/dropdown_more_actions/dropdown_more_actions_widget.dart';
 import '/components/post_comment_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -52,13 +52,8 @@ class _CommentWidgetState extends State<CommentWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: FlutterFlowTheme.of(context).secondaryBackground,
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
       child: StreamBuilder<CommentsRecord>(
         stream: CommentsRecord.getDocument(widget.commentRef!),
         builder: (context, snapshot) {
@@ -79,6 +74,7 @@ class _CommentWidgetState extends State<CommentWidget> {
           final columnCommentsRecord = snapshot.data!;
           return Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StreamBuilder<UsersRecord>(
                 stream: UsersRecord.getDocument(columnCommentsRecord.userRef!),
@@ -166,8 +162,12 @@ class _CommentWidgetState extends State<CommentWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: DropdownCommentEditWidget(
-                                          commentRef: widget.commentRef!,
+                                        child: DropdownMoreActionsWidget(
+                                          commentRef: widget.commentRef,
+                                          commentUserRef:
+                                              columnCommentsRecord.userRef,
+                                          postRef: columnCommentsRecord.postRef,
+                                          actionType: 'comment',
                                         ),
                                       ),
                                     );
@@ -212,7 +212,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                                   'COMMENT_COMP_Row_27qkji3w_ON_TAP');
                               if (columnCommentsRecord.likes
                                   .contains(currentUserReference)) {
-                                logFirebaseEvent('Row_backend_call');
+                                // Unlike
+                                logFirebaseEvent('Row_Unlike');
 
                                 await widget.commentRef!.update({
                                   ...mapToFirestore(
@@ -224,7 +225,8 @@ class _CommentWidgetState extends State<CommentWidget> {
                                 });
                                 return;
                               } else {
-                                logFirebaseEvent('Row_backend_call');
+                                // Like
+                                logFirebaseEvent('Row_Like');
 
                                 await widget.commentRef!.update({
                                   ...mapToFirestore(
@@ -269,17 +271,6 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     formatNumber(
                                       columnCommentsRecord.likes.length,
                                       formatType: FormatType.compact,
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'n00p2z17' /* likes */,
                                     ),
                                     style:
                                         FlutterFlowTheme.of(context).bodyMedium,
@@ -354,17 +345,6 @@ class _CommentWidgetState extends State<CommentWidget> {
                                     formatNumber(
                                       columnCommentsRecord.dislikes.length,
                                       formatType: FormatType.compact,
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'tuukijc1' /* dislikes */,
                                     ),
                                     style:
                                         FlutterFlowTheme.of(context).bodyMedium,
@@ -682,10 +662,12 @@ class _CommentWidgetState extends State<CommentWidget> {
                                                                         .viewInsetsOf(
                                                                             context),
                                                                     child:
-                                                                        DropdownCommentEditWidget(
+                                                                        DropdownMoreActionsWidget(
                                                                       commentRef:
                                                                           widget
-                                                                              .commentRef!,
+                                                                              .commentRef,
+                                                                      actionType:
+                                                                          'comment',
                                                                     ),
                                                                   ),
                                                                 );

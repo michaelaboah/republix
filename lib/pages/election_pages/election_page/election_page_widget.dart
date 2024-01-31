@@ -134,36 +134,45 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                       minFontSize: 14.0,
                     ),
                   ),
-                  Builder(
-                    builder: (context) => FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 50.0,
-                      icon: Icon(
-                        Icons.ios_share_outlined,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 26.0,
-                      ),
-                      onPressed: () async {
-                        logFirebaseEvent(
-                            'ELECTION_ios_share_outlined_ICN_ON_TAP');
-                        logFirebaseEvent(
-                            'IconButton_generate_current_page_link');
-                        _model.currentPageLink = await generateCurrentPageLink(
-                          context,
-                          title: widget.officeRace,
-                          isShortLink: false,
-                        );
+                  if (!isWeb &&
+                      responsiveVisibility(
+                        context: context,
+                        desktop: false,
+                      ))
+                    Builder(
+                      builder: (context) => FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 50.0,
+                        icon: Icon(
+                          Icons.ios_share_outlined,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 26.0,
+                        ),
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'ELECTION_ios_share_outlined_ICN_ON_TAP');
+                          logFirebaseEvent(
+                              'IconButton_generate_current_page_link');
+                          _model.currentPageLink =
+                              await generateCurrentPageLink(
+                            context,
+                            title: widget.officeRace,
+                            isShortLink: false,
+                          );
 
-                        logFirebaseEvent('IconButton_share');
-                        await Share.share(
-                          _model.currentPageLink,
-                          sharePositionOrigin: getWidgetBoundingBox(context),
-                        );
-                      },
+                          if (!isWeb) {
+                            logFirebaseEvent('IconButton_share');
+                            await Share.share(
+                              _model.currentPageLink,
+                              sharePositionOrigin:
+                                  getWidgetBoundingBox(context),
+                            );
+                          }
+                        },
+                      ),
                     ),
-                  ),
                   if (responsiveVisibility(
                     context: context,
                     phone: false,
@@ -243,178 +252,193 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 100.0,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(0.0),
-                          topRight: Radius.circular(0.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(12.0, 2.0, 0.0, 4.0),
-                        child: Builder(
-                          builder: (context) {
-                            final incumbents =
-                                electionPageElectionsRecord.incumbents.toList();
-                            return ListView.separated(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: incumbents.length,
-                              separatorBuilder: (_, __) => const SizedBox(width: 8.0),
-                              itemBuilder: (context, incumbentsIndex) {
-                                final incumbentsItem =
-                                    incumbents[incumbentsIndex];
-                                return StreamBuilder<OfficialsRecord>(
-                                  stream: OfficialsRecord.getDocument(
-                                      incumbentsItem),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
+                    padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
+                    child: ClipRRect(
+                      child: Container(
+                        height: MediaQuery.sizeOf(context).height * 0.13,
+                        decoration: const BoxDecoration(),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              12.0, 2.0, 0.0, 4.0),
+                          child: Builder(
+                            builder: (context) {
+                              final incumbents = electionPageElectionsRecord
+                                  .incumbents
+                                  .toList();
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: incumbents.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 8.0),
+                                itemBuilder: (context, incumbentsIndex) {
+                                  final incumbentsItem =
+                                      incumbents[incumbentsIndex];
+                                  return StreamBuilder<OfficialsRecord>(
+                                    stream: OfficialsRecord.getDocument(
+                                        incumbentsItem),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final containerOfficialsRecord =
+                                          snapshot.data!;
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'ELECTION_Container_dq4cjy1c_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Container_navigate_to');
+
+                                          context.pushNamed(
+                                            'officerDetails',
+                                            queryParameters: {
+                                              'showBack': serializeParam(
+                                                false,
+                                                ParamType.bool,
+                                              ),
+                                              'officerRef': serializeParam(
+                                                containerOfficialsRecord
+                                                    .reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 146.0,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                blurRadius: 4.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0.0, 2.0),
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent1,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Flexible(
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.network(
+                                                          containerOfficialsRecord
+                                                              .photoUrl,
+                                                          width: 60.0,
+                                                          height: 60.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        '(${(String var1) {
+                                                          return var1[0];
+                                                        }(containerOfficialsRecord.partyAffiliation)})',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Plus Jakarta Sans',
+                                                              fontSize: 12.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    Flexible(
+                                                      child: SelectionArea(
+                                                          child: AutoSizeText(
+                                                        containerOfficialsRecord
+                                                            .displayName
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 30,
+                                                          replacement: '…',
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        maxLines: 2,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Plus Jakarta Sans',
+                                                              fontSize: 12.0,
+                                                            ),
+                                                      )),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ].divide(const SizedBox(height: 4.0)),
                                             ),
                                           ),
                                         ),
                                       );
-                                    }
-                                    final containerOfficialsRecord =
-                                        snapshot.data!;
-                                    return InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'ELECTION_Container_dq4cjy1c_ON_TAP');
-                                        logFirebaseEvent(
-                                            'Container_navigate_to');
-
-                                        context.pushNamed(
-                                          'officerDetails',
-                                          queryParameters: {
-                                            'showBack': serializeParam(
-                                              false,
-                                              ParamType.bool,
-                                            ),
-                                            'officerRef': serializeParam(
-                                              containerOfficialsRecord
-                                                  .reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 146.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              blurRadius: 4.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(0.0, 2.0),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .accent1,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.network(
-                                                      containerOfficialsRecord
-                                                          .photoUrl,
-                                                      width: 60.0,
-                                                      height: 60.0,
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                4.0, 0.0),
-                                                    child: Text(
-                                                      '(${(String var1) {
-                                                        return var1[0];
-                                                      }(containerOfficialsRecord.partyAffiliation)})',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Plus Jakarta Sans',
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    containerOfficialsRecord
-                                                        .displayName
-                                                        .maybeHandleOverflow(
-                                                            maxChars: 30),
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 3,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          fontSize: 12.0,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ].divide(const SizedBox(height: 4.0)),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                          },
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -618,6 +642,9 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                                           photoUrlPath:
                                               candidateComponentCandidatesRecord
                                                   .photoUrl,
+                                          numOfFollowers:
+                                              candidateComponentCandidatesRecord
+                                                  .followers.length,
                                         );
                                       },
                                     );
@@ -678,7 +705,7 @@ class _ElectionPageWidgetState extends State<ElectionPageWidget> {
                                           photoUrlPath:
                                               candidateComponentCandidatesRecord
                                                   .photoUrl,
-                                          numViews:
+                                          numOfFollowers:
                                               candidateComponentCandidatesRecord
                                                   .followers.length,
                                         );

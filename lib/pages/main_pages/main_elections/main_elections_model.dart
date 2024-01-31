@@ -18,14 +18,17 @@ class MainElectionsModel extends FlutterFlowModel<MainElectionsWidget> {
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
   // State field(s) for DropDown widget.
-  int? dropDownValue2;
-  FormFieldController<int>? dropDownValueController2;
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
   // State field(s) for DropDown widget.
-  String? dropDownValue3;
-  FormFieldController<String>? dropDownValueController3;
+  int? dropDownValue3;
+  FormFieldController<int>? dropDownValueController3;
   // State field(s) for DropDown widget.
   String? dropDownValue4;
   FormFieldController<String>? dropDownValueController4;
+  // State field(s) for DropDown widget.
+  String? dropDownValue5;
+  FormFieldController<String>? dropDownValueController5;
 
   /// Initialization and disposal methods.
 

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -81,11 +80,6 @@ class CandidatesRecord extends FirestoreRecord {
   String get partyAffilication => _partyAffilication ?? '';
   bool hasPartyAffilication() => _partyAffilication != null;
 
-  // "level" field.
-  GovernanceLevel? _level;
-  GovernanceLevel? get level => _level;
-  bool hasLevel() => _level != null;
-
   // "comittee_name" field.
   String? _comitteeName;
   String get comitteeName => _comitteeName ?? '';
@@ -139,7 +133,6 @@ class CandidatesRecord extends FirestoreRecord {
     );
     _bannerImgUrl = snapshotData['banner_img_url'] as String?;
     _partyAffilication = snapshotData['party_affilication'] as String?;
-    _level = deserializeEnum<GovernanceLevel>(snapshotData['level']);
     _comitteeName = snapshotData['comittee_name'] as String?;
     _followers = getDataList(snapshotData['followers']);
     _donationLink = snapshotData['donation_link'] as String?;
@@ -196,7 +189,6 @@ Map<String, dynamic> createCandidatesRecordData({
   SocialMediaStruct? socialMedia,
   String? bannerImgUrl,
   String? partyAffilication,
-  GovernanceLevel? level,
   String? comitteeName,
   String? donationLink,
   DocumentReference? electionRef,
@@ -217,7 +209,6 @@ Map<String, dynamic> createCandidatesRecordData({
       'social_media': SocialMediaStruct().toMap(),
       'banner_img_url': bannerImgUrl,
       'party_affilication': partyAffilication,
-      'level': level,
       'comittee_name': comitteeName,
       'donation_link': donationLink,
       'election_ref': electionRef,
@@ -254,7 +245,6 @@ class CandidatesRecordDocumentEquality implements Equality<CandidatesRecord> {
         listEquality.equals(e1?.policies, e2?.policies) &&
         e1?.bannerImgUrl == e2?.bannerImgUrl &&
         e1?.partyAffilication == e2?.partyAffilication &&
-        e1?.level == e2?.level &&
         e1?.comitteeName == e2?.comitteeName &&
         listEquality.equals(e1?.followers, e2?.followers) &&
         e1?.donationLink == e2?.donationLink &&
@@ -279,7 +269,6 @@ class CandidatesRecordDocumentEquality implements Equality<CandidatesRecord> {
         e?.policies,
         e?.bannerImgUrl,
         e?.partyAffilication,
-        e?.level,
         e?.comitteeName,
         e?.followers,
         e?.donationLink,

@@ -123,65 +123,62 @@ class _MainHomeWidgetState extends State<MainHomeWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('MAIN_HOME_PAGE_Main_Home_ON_INIT_STATE');
-      if (currentUserDocument?.candidateRef != null) {
-      } else {
-        if (FFAppState().onboarded) {
-          logFirebaseEvent('Main_Home_firestore_query');
-          unawaited(
-            () async {
-              _model.samplePrimary = await queryElectionsRecordOnce(
-                queryBuilder: (electionsRecord) => electionsRecord
-                    .where(
-                      'jurisidiction.state',
-                      isEqualTo: FFAppState().userJurisdiction.state,
-                    )
-                    .where(
-                      'election_type',
-                      isEqualTo: FFAppConstants.primary,
-                    ),
-                singleRecord: true,
-              ).then((s) => s.firstOrNull);
-            }(),
-          );
-          logFirebaseEvent('Main_Home_firestore_query');
-          unawaited(
-            () async {
-              _model.sampleGeneral = await queryElectionsRecordOnce(
-                queryBuilder: (electionsRecord) => electionsRecord
-                    .where(
-                      'jurisidiction.state',
-                      isEqualTo: FFAppState().userJurisdiction.state,
-                    )
-                    .where(
-                      'election_type',
-                      isEqualTo: FFAppConstants.general,
-                    ),
-                singleRecord: true,
-              ).then((s) => s.firstOrNull);
-            }(),
-          );
-        } else {
-          logFirebaseEvent('Main_Home_bottom_sheet');
-          await showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            enableDrag: false,
-            context: context,
-            builder: (context) {
-              return WebViewAware(
-                child: GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: const ModalOnboardingWidget(),
+      if (FFAppState().onboarded) {
+        logFirebaseEvent('Main_Home_firestore_query');
+        unawaited(
+          () async {
+            _model.samplePrimary = await queryElectionsRecordOnce(
+              queryBuilder: (electionsRecord) => electionsRecord
+                  .where(
+                    'jurisidiction.state',
+                    isEqualTo: FFAppState().userJurisdiction.state,
+                  )
+                  .where(
+                    'election_type',
+                    isEqualTo: FFAppConstants.primary,
                   ),
+              singleRecord: true,
+            ).then((s) => s.firstOrNull);
+          }(),
+        );
+        logFirebaseEvent('Main_Home_firestore_query');
+        unawaited(
+          () async {
+            _model.sampleGeneral = await queryElectionsRecordOnce(
+              queryBuilder: (electionsRecord) => electionsRecord
+                  .where(
+                    'jurisidiction.state',
+                    isEqualTo: FFAppState().userJurisdiction.state,
+                  )
+                  .where(
+                    'election_type',
+                    isEqualTo: FFAppConstants.general,
+                  ),
+              singleRecord: true,
+            ).then((s) => s.firstOrNull);
+          }(),
+        );
+      } else {
+        logFirebaseEvent('Main_Home_bottom_sheet');
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          enableDrag: false,
+          context: context,
+          builder: (context) {
+            return WebViewAware(
+              child: GestureDetector(
+                onTap: () => _model.unfocusNode.canRequestFocus
+                    ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                    : FocusScope.of(context).unfocus(),
+                child: Padding(
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: const ModalOnboardingWidget(),
                 ),
-              );
-            },
-          ).then((value) => safeSetState(() {}));
-        }
+              ),
+            );
+          },
+        ).then((value) => safeSetState(() {}));
       }
     });
 
@@ -247,6 +244,7 @@ class _MainHomeWidgetState extends State<MainHomeWidget>
                   Expanded(
                     flex: 10,
                     child: SingleChildScrollView(
+                      primary: false,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,

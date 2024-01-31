@@ -1,13 +1,10 @@
 import '/backend/backend.dart';
-import '/components/dropdown_post_edit/dropdown_post_edit_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'officer_component_model.dart';
 export 'officer_component_model.dart';
 
@@ -298,46 +295,6 @@ class _OfficerComponentWidgetState extends State<OfficerComponentWidget>
                         ],
                       ),
                     ],
-                  ),
-                ),
-                Builder(
-                  builder: (context) => Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        logFirebaseEvent(
-                            'OFFICER_COMPONENT_Icon_dvbgkj0w_ON_TAP');
-                        logFirebaseEvent('Icon_alert_dialog');
-                        await showAlignedDialog(
-                          barrierColor: Colors.transparent,
-                          context: context,
-                          isGlobal: false,
-                          avoidOverflow: true,
-                          targetAnchor: const AlignmentDirectional(1.0, -1.0)
-                              .resolve(Directionality.of(context)),
-                          followerAnchor: const AlignmentDirectional(-1.0, 1.0)
-                              .resolve(Directionality.of(context)),
-                          builder: (dialogContext) {
-                            return const Material(
-                              color: Colors.transparent,
-                              child: WebViewAware(
-                                child: DropdownPostEditWidget(),
-                              ),
-                            );
-                          },
-                        ).then((value) => setState(() {}));
-                      },
-                      child: Icon(
-                        Icons.more_vert,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                    ),
                   ),
                 ),
               ],

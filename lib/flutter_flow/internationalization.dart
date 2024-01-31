@@ -425,37 +425,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // Main_ElectionsDeprecated
-  {
-    '5amahfts': {
-      'en': 'Coming Elections',
-      'es': '',
-    },
-    'iz0xtvoy': {
-      'en': 'Federal',
-      'es': '',
-    },
-    'nbfaqmn3': {
-      'en': 'State',
-      'es': '',
-    },
-    'c62s0dgn': {
-      'en': 'Local',
-      'es': '',
-    },
-    'uakc5yfa': {
-      'en': 'County: ',
-      'es': '',
-    },
-    'hszftwyb': {
-      'en': 'City:',
-      'es': '',
-    },
-    'w4zgt6o6': {
-      'en': '__',
-      'es': '',
-    },
-  },
   // Main_Notifications
   {
     '20y5fya1': {
@@ -644,6 +613,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': ' Policies',
       'es': '',
     },
+    '7ypofrwc': {
+      'en': 'No Posts',
+      'es': '',
+    },
+    '29h6yo6o': {
+      'en':
+          'Don\'t worry these positions exists.\n We just need to ask kindly.',
+      'es': '',
+    },
     'ucc69fbm': {
       'en': 'Media',
       'es': '',
@@ -654,6 +632,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'a2ge0gb9': {
       'en': 'Posts',
+      'es': '',
+    },
+    '1w01qg28': {
+      'en': 'No Posts',
+      'es': '',
+    },
+    '9wwzmfff': {
+      'en': 'Start the conversation your self',
       'es': '',
     },
     '0w66q6em': {
@@ -782,44 +768,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Eg. (123) 456 - 1776',
       'es': '',
     },
-    'mu3b9m40': {
-      'en': 'Select Governance...',
-      'es': '',
-    },
-    '9f0rookl': {
-      'en': 'Search for an item...',
-      'es': '',
-    },
     'd0uykgci': {
-      'en': 'Jurisdiction',
-      'es': '',
-    },
-    'iyr729bi': {
-      'en': 'City',
-      'es': '',
-    },
-    '9zcgc03h': {
-      'en': '',
-      'es': '',
-    },
-    'jxtr16nc': {
-      'en': 'County',
-      'es': '',
-    },
-    '3kuw2y9r': {
-      'en': '',
-      'es': '',
-    },
-    'uihgygbk': {
-      'en': 'Federal District Number',
-      'es': '',
-    },
-    '5aqr5019': {
-      'en': '1',
+      'en': 'Election',
       'es': '',
     },
     'dm2luyw5': {
-      'en': 'Maryland',
+      'en': 'MD',
       'es': '',
     },
     'ycaviglg': {
@@ -830,8 +784,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Search for an item...',
       'es': '',
     },
-    '720ox167': {
-      'en': 'Locate',
+    'au4qkn5q': {
+      'en': 'Select Election...',
+      'es': '',
+    },
+    'vsqwkri1': {
+      'en': 'Search for an item...',
       'es': '',
     },
     's0uk4k1d': {
@@ -883,7 +841,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'vbste4y8': {
-      'en': 'Media',
+      'en': 'Images',
+      'es': '',
+    },
+    'myku088b': {
+      'en': 'Upload',
+      'es': '',
+    },
+    'w3rfa4uq': {
+      'en': 'Upload',
       'es': '',
     },
     'h8w1mk8z': {
@@ -955,6 +921,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Enter your Snapchat url...',
       'es': '',
     },
+    'wj5odrac': {
+      'en': 'YT Video Link',
+      'es': '',
+    },
+    'fnsdp6zx': {
+      'en': 'https://www.youtube.com/watch?...',
+      'es': '',
+    },
+    '8emqlnyd': {
+      'en': 'Add Video',
+      'es': '',
+    },
     'ntmrlyaq': {
       'en': 'Next',
       'es': '',
@@ -1010,75 +988,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     '6r5m58f0': {
-      'en': 'Setup Stripe to receive your Campaign contributions',
+      'en': 'Republix does not (yet) process donations',
       'es': '',
     },
-    'jfmiail1': {
-      'en': 'Existing Stripe Account',
+    'x4xg0afn': {
+      'en': 'Please provide a mobile accesible link to your donation page',
       'es': '',
     },
-    '805houcn': {
-      'en': 'New Account Information',
+    'ooe47lxo': {
+      'en': 'Donation Page Link',
       'es': '',
     },
-    'ekiscifi': {
-      'en': 'Check information',
-      'es': '',
-    },
-    '860b4n1n': {
-      'en': 'Campaign Email',
-      'es': '',
-    },
-    'klp9ud0c': {
-      'en': 'Eg. info@washington1782.com',
-      'es': '',
-    },
-    'uaedzt17': {
-      'en': 'Business Name',
-      'es': '',
-    },
-    '7lkn65bm': {
-      'en': 'Eg. (Commitee Name)',
-      'es': '',
-    },
-    'exhe7rxy': {
-      'en': 'Phone Number',
-      'es': '',
-    },
-    'wwfuh0q9': {
-      'en': 'Eg. info@washington1782.com',
-      'es': '',
-    },
-    '0or0c4uf': {
-      'en': 'Non-Profit',
-      'es': '',
-    },
-    '3reho3j7': {
-      'en': 'Company',
-      'es': '',
-    },
-    'euot9edd': {
-      'en': 'Non-Profit',
-      'es': '',
-    },
-    'w26p6jfn': {
-      'en': 'Government',
-      'es': '',
-    },
-    'u6bw5rg8': {
-      'en': 'Individual',
-      'es': '',
-    },
-    'hcmgbw0y': {
-      'en': 'Select Business Type...',
-      'es': '',
-    },
-    '4b84g42o': {
-      'en': 'Search for an item...',
-      'es': '',
-    },
-    '2idiiw1e': {
-      'en': 'New Stripe Account',
+    'zu3339j6': {
+      'en': '',
       'es': '',
     },
     'n4yycnn5': {
@@ -1093,48 +1015,57 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'This is what the people will see',
       'es': '',
     },
-    '9h8rle9a': {
-      'en': 'Candidate Name',
-      'es': '',
-    },
-    'gplqkc0a': {
+    'iypskea1': {
       'en': 'Running For:',
       'es': '',
     },
-    'rlyci2uq': {
-      'en': 'Head of Procurement',
-      'es': '',
-    },
-    '8izijd8b': {
+    'qgbslqe1': {
       'en': 'About',
       'es': '',
     },
-    '2gkxyjtz': {
+    'ecrkm4zc': {
       'en': 'Committee:',
       'es': '',
     },
-    '755pephp': {
+    'e1yt164f': {
       'en': 'Bio',
       'es': '',
     },
-    'lc5qvkh8': {
+    '2xl4niqu': {
       'en': ' Policies',
       'es': '',
     },
-    'tr42f5qv': {
-      'en': 'Policies',
+    'kdaviefk': {
+      'en': 'No Posts',
       'es': '',
     },
-    'xxpmxh1u': {
+    'ofvkiw0j': {
+      'en':
+          'Don\'t worry these positions exists.\n We just need to ask kindly.',
+      'es': '',
+    },
+    '6ftq5gsh': {
       'en': 'Media',
       'es': '',
     },
-    '14vqvgy3': {
-      'en': 'Coming Soon',
+    'jb9skq3r': {
+      'en': 'No Media',
       'es': '',
     },
-    'nvsj5isa': {
-      'en': 'Donate to Candidate',
+    'dafpwpvt': {
+      'en': 'Posts',
+      'es': '',
+    },
+    'ltqax6rr': {
+      'en': 'No Posts',
+      'es': '',
+    },
+    'apzyv2rm': {
+      'en': 'Start the conversation your self',
+      'es': '',
+    },
+    '73khl76h': {
+      'en': 'Go to Donation Page',
       'es': '',
     },
     '6jfvtp27': {
@@ -1199,7 +1130,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // PostDetails
   {
     'iqrnaof7': {
-      'en': 'Leave post here...',
+      'en': 'Leave comment here...',
       'es': '',
     },
     'fttl5sq2': {
@@ -1289,6 +1220,22 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     '4vttiaxk': {
+      'en': 'Search for an item...',
+      'es': '',
+    },
+    'c2r9xx16': {
+      'en': 'MD',
+      'es': '',
+    },
+    'o3g4pnxy': {
+      'en': 'MD',
+      'es': '',
+    },
+    'z5zd5zad': {
+      'en': 'State',
+      'es': '',
+    },
+    'j7glsvce': {
       'en': 'Search for an item...',
       'es': '',
     },
@@ -1602,25 +1549,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'je5k3vpe': {
       'en': 'Save Changes',
-      'es': '',
-    },
-  },
-  // dropdown_PostEdit
-  {
-    '7bef1pr2': {
-      'en': 'Options',
-      'es': '',
-    },
-    'k3k8ba1y': {
-      'en': 'Share',
-      'es': '',
-    },
-    '2yvp4unq': {
-      'en': 'Edit',
-      'es': '',
-    },
-    'aypcenbp': {
-      'en': 'Delete',
       'es': '',
     },
   },
@@ -1998,7 +1926,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'fbqhn7g2': {
-      'en': 'Leave post here...',
+      'en': 'Leave comment here...',
       'es': '',
     },
     'pktz67nk': {
@@ -2010,10 +1938,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
   },
-  // dropdown_CommentEdit
+  // dropdown_MoreActions
   {
     'pj7obili': {
-      'en': 'Options',
+      'en': 'Comment Options',
       'es': '',
     },
     'q222fxl9': {
@@ -2028,8 +1956,28 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Delete',
       'es': '',
     },
+    'gq3nfmzx': {
+      'en': 'Post Options',
+      'es': '',
+    },
+    'y1gwozcn': {
+      'en': 'Share',
+      'es': '',
+    },
+    'fecj7pap': {
+      'en': 'Edit',
+      'es': '',
+    },
+    '4965etg0': {
+      'en': 'Delete',
+      'es': '',
+    },
+    '1hg1a48i': {
+      'en': 'N/A',
+      'es': '',
+    },
   },
-  // modal_DeleteComm
+  // modal_ConfirmDeletion
   {
     '5tlol58l': {
       'en': 'Delete comment?',
@@ -2044,6 +1992,22 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'hsda70js': {
+      'en': 'Confirm',
+      'es': '',
+    },
+    'jvhk3k8f': {
+      'en': 'Delete post?',
+      'es': '',
+    },
+    'xesipi4v': {
+      'en': 'This action is unrecoverable.',
+      'es': '',
+    },
+    'nq6do4qm': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'o664tgl3': {
       'en': 'Confirm',
       'es': '',
     },
@@ -2089,6 +2053,34 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // userPost
   {
+    '4k7kqm4s': {
+      'en': 'Edit Post',
+      'es': '',
+    },
+    'xlilhhfa': {
+      'en': 'Title',
+      'es': '',
+    },
+    'mic0vsal': {
+      'en': 'Declaration of...',
+      'es': '',
+    },
+    'hohvib4m': {
+      'en': 'Description',
+      'es': '',
+    },
+    'ox1zoxsm': {
+      'en': 'We the people...',
+      'es': '',
+    },
+    'psrnota0': {
+      'en': 'Cancel',
+      'es': '',
+    },
+    'ot65onej': {
+      'en': 'Confirm',
+      'es': '',
+    },
     'sf94wtm7': {
       'en': 'Create Post',
       'es': '',
@@ -2124,14 +2116,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Comment
   {
-    'n00p2z17': {
-      'en': 'likes',
-      'es': '',
-    },
-    'tuukijc1': {
-      'en': 'dislikes',
-      'es': '',
-    },
     't2emfnoj': {
       'en': 'Reply',
       'es': '',
